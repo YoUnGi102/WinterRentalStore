@@ -1,10 +1,11 @@
 package com.example.winterrentalstore.model;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface ClientI {
+public interface ClientI extends Remote {
 
-    boolean logIn(ClientI client, String username, String password) throws RemoteException;
-    void logOut(ClientI client) throws RemoteException;
+    boolean logIn(String username, String password) throws RemoteException;
+    void logOut() throws RemoteException;
 
 }

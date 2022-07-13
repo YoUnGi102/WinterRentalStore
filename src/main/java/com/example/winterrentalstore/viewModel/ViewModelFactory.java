@@ -1,6 +1,6 @@
-package viewModel;
+package com.example.winterrentalstore.viewModel;
 
-import model.Model;
+import com.example.winterrentalstore.model.Model;
 
 public class ViewModelFactory {
     private Model model;
@@ -10,7 +10,6 @@ public class ViewModelFactory {
         this.model = model;
         this.logInViewModel = new LogInViewModel(model);
     }
-
 
     public LogInViewModel getLoginViewModel() {
         return logInViewModel;

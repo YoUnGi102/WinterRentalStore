@@ -25,8 +25,10 @@ public class Server extends UnicastRemoteObject implements ServerI {
         // TODO ADD CHECKING FOR CREDENTIALS
         if(true){
             clients.add(client);
+            System.out.println("User " + username + " successfully logged in");
             return true;
         }else{
+            System.out.println("User " + username + " was refused access");
             return false;
         }
     }

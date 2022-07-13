@@ -1,6 +1,5 @@
 package com.example.winterrentalstore.model;
 
-import com.example.winterrentalstore.server.Server;
 import com.example.winterrentalstore.server.ServerI;
 
 import java.io.Serial;
@@ -18,13 +17,13 @@ public class Client extends UnicastRemoteObject implements ClientI{
     }
 
     @Override
-    public boolean logIn(ClientI client, String username, String password) throws RemoteException {
-        return server.logIn(client, username, password);
+    public boolean logIn(String username, String password) throws RemoteException {
+        return server.logIn(this, username, password);
     }
 
     @Override
-    public void logOut(ClientI client) throws RemoteException {
-        server.logOut(client);
+    public void logOut() throws RemoteException {
+        server.logOut(this);
     }
 }
 
