@@ -1,4 +1,4 @@
-package com.example.winterrentalstore.model;
+package dk.via.client.model;
 
 public class Item {
     private int itemId;

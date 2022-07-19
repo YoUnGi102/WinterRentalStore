@@ -1,13 +1,14 @@
-package com.example.winterrentalstore.viewModel;
+package dk.via.client.viewModel;
 
-import com.example.winterrentalstore.model.Item;
-import com.example.winterrentalstore.model.Model;
+import dk.via.client.model.Item;
+import dk.via.client.model.Model;
 import javafx.beans.property.*;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class ManageItemViewModel {
+
     private Model model;
     private IntegerProperty itemIdProperty;
     private StringProperty nameProperty;

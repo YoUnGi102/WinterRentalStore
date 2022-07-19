@@ -1,6 +1,6 @@
 package dk.via.client.model;
 
-import dk.via.server.RemoteModel;
+import dk.via.client.model.RemoteModel;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -29,6 +29,36 @@ public class ModelManager implements Model {
     @Override
     public void logOut() {
 
+    }
+
+    @Override
+    public Customer getCustomerByPassport(int passportNumber) throws RemoteException, NotBoundException {
+        return client.getCustomerByPassport(passportNumber);
+    }
+
+    @Override
+    public void addCustomer(Customer customer) throws RemoteException, NotBoundException {
+        client.addCustomer(customer);
+    }
+
+    @Override
+    public void removeCustomer(Customer customer) throws RemoteException, NotBoundException {
+        client.removeCustomer(customer);
+    }
+
+    @Override
+    public Item getItemById(int itemId) throws RemoteException, NotBoundException {
+        return client.getItemById(itemId);
+    }
+
+    @Override
+    public void addItem(Item item) throws RemoteException, NotBoundException {
+        client.addItem(item);
+    }
+
+    @Override
+    public void removeItem(Item item) throws RemoteException, NotBoundException {
+        client.removeItem(item);
     }
 
 }

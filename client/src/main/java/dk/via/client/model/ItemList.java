@@ -1,4 +1,4 @@
-package com.example.winterrentalstore.model;
+package dk.via.client.model;
 
 import java.util.ArrayList;
 
