@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
-    <artifactId>WinterRentalStore</artifactId>
+    <groupId>dk.via</groupId>
+    <artifactId>server</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>WinterRentalStore</name>
+    <name>server</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -38,12 +38,6 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>dk.via</groupId>
-            <artifactId>client</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -66,8 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.winterrentalstore/com.example.winterrentalstore.Application
-                            </mainClass>
+                            <mainClass>dk.via.server/dk.via.HelloApplication</mainClass>
                         </configuration>
                     </execution>
                 </executions>

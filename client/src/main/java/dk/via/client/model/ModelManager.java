@@ -1,13 +1,13 @@
-package com.example.winterrentalstore.model;
+package dk.via.client.model;
 
-import dk.via.client.model.RemoteModel;
+import dk.via.server.RemoteModel;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-public class ModelManager implements Model{
+public class ModelManager implements Model {
 
     public static final int PORT = 1039;
 
@@ -28,6 +28,7 @@ public class ModelManager implements Model{
 
     @Override
     public void logOut() {
+
     }
 
 }
