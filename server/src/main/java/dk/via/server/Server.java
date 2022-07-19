@@ -1,27 +1,23 @@
-package com.example.winterrentalstore.server;
-
-import com.example.winterrentalstore.model.Client;
-import com.example.winterrentalstore.model.ClientI;
+package dk.via.server;
 
 import java.io.Serial;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class Server extends UnicastRemoteObject implements ServerI {
+public class Server extends UnicastRemoteObject implements RemoteModel {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final ArrayList<ClientI> clients;
+    private final ArrayList<RemoteModel> clients;
 
     protected Server() throws RemoteException {
         clients = new ArrayList<>();
     }
 
     @Override
-    public boolean logIn(ClientI client, String username, String password) throws RemoteException{
+    public boolean logIn(RemoteModel client, String username, String password) throws RemoteException{
         // TODO ADD CHECKING FOR CREDENTIALS
         if(true){
             clients.add(client);
@@ -34,7 +30,7 @@ public class Server extends UnicastRemoteObject implements ServerI {
     }
 
     @Override
-    public void logOut(ClientI client) throws RemoteException {
+    public void logOut(RemoteModel client) throws RemoteException {
         clients.remove(client);
     }
 }

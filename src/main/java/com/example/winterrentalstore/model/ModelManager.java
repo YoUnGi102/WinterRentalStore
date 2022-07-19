@@ -1,6 +1,6 @@
 package com.example.winterrentalstore.model;
 
-import com.example.winterrentalstore.server.ServerI;
+import dk.via.client.model.RemoteModel;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -25,10 +25,10 @@ public class ModelManager implements Model {
     @Override
     public boolean logIn(String username, String password) throws RemoteException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry("127.0.0.1", PORT);
-        ServerI server = (ServerI) registry.lookup("RMIServer");
+        RemoteModel server = (RemoteModel) registry.lookup("RMIServer");
         client = new Client(server);
         // TODO (STAFF OBJECT)
-        return client.logIn(username, password);
+        return client.logIn(client, username, password);
     }
 
     @Override

@@ -1,13 +1,12 @@
-package com.example.winterrentalstore.model;
+package dk.via.client.model;
 
-import dk.via.client.model.RemoteModel;
+import dk.via.server.RemoteModel;
 
 import java.io.Serial;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Client extends UnicastRemoteObject implements RemoteModel {
+public class Client extends UnicastRemoteObject implements RemoteModel{
 
     @Serial
     private static final long serialVersionUID = 1L;
