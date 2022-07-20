@@ -1,9 +1,6 @@
 package mediator;
 
-import model.Customer;
-import model.Item;
-import model.Model;
-import model.ModelManager;
+import model.*;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -85,5 +82,30 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
     @Override
     public void removeItem(Item item) throws RemoteException, NotBoundException {
         model.removeItem(item);
+    }
+
+    @Override
+    public ArrayList<Employee> getEmployees() throws RemoteException, NotBoundException {
+        return model.getEmployees();
+    }
+
+    @Override
+    public ArrayList<Employee> getEmployeesByType(String type) throws RemoteException, NotBoundException {
+        return model.getEmployeesByType(type);
+    }
+
+    @Override
+    public Employee getEmployeeByUsername(String username) throws RemoteException, NotBoundException {
+        return model.getEmployeeByUsername(username);
+    }
+
+    @Override
+    public void addEmployee(Employee employee) throws RemoteException, NotBoundException {
+        model.addEmployee(employee);
+    }
+
+    @Override
+    public void removeEmployee(Employee employee) throws RemoteException, NotBoundException {
+        model.removeEmployee(employee);
     }
 }
