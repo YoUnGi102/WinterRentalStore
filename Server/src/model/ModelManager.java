@@ -1,23 +1,32 @@
 package model;
 
 
+import databaseAdapters.StaffDAO;
+import databaseAdapters.StaffImplementation;
+
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class ModelManager implements Model {
 
     private CustomerList customerList;
     private ItemList itemList;
 
+    private StaffDAO staffDAO;
+    private Staff currentUser;
     public ModelManager() {
+        staffDAO = new StaffImplementation();
+
         customerList = new CustomerList();
         itemList = new ItemList();
     }
 
     @Override
-    public boolean logIn(String username, String password) throws RemoteException, NotBoundException {
-        // TODO
-        return false;
+    public boolean logIn(String username, String password) throws RemoteException, NotBoundException, SQLException {
+        currentUser = staffDAO.logIn(username, password);
+        return currentUser != null;
+        // TODO ADD EXCEPTION IF WRONG PASSWORD
     }
 
     @Override
