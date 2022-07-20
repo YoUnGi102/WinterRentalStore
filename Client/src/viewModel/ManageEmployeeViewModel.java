@@ -3,6 +3,11 @@ package viewModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import mediator.RemoteModel;
+import model.Employee;
+
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public class ManageEmployeeViewModel {
     private StringProperty usernameProperty;
@@ -22,6 +27,26 @@ public class ManageEmployeeViewModel {
         emailProperty = new SimpleStringProperty();
         passwordProperty = new SimpleStringProperty();
         staffTypeProperty = new SimpleStringProperty();
+    }
+
+    public ArrayList<Employee> getEmployees() throws RemoteException, NotBoundException {
+        return model.getEmployees();
+    }
+
+    public ArrayList<Employee> getEmployeesByType(String type) throws RemoteException, NotBoundException {
+        return model.getEmployeesByType(type);
+    }
+
+    public Employee getEmployeeByUsername(String username) throws RemoteException, NotBoundException {
+        return model.getEmployeeByUsername(username);
+    }
+
+    public void addEmployee(Employee employee) throws RemoteException, NotBoundException {
+        model.addEmployee(employee);
+    }
+
+    public void removeEmployee(Employee employee) throws RemoteException, NotBoundException {
+        model.removeEmployee(employee);
     }
 
     public String getUsernameProperty() {
