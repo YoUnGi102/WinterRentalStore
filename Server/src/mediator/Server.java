@@ -9,22 +9,19 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Server extends UnicastRemoteObject implements RemoteModel {
-
     private static final long serialVersionUID = 1L;
     private static final int PORT = 1099;
-
     private final ArrayList<RemoteModel> clients;
     private Model model;
-
     public Server() throws RemoteException, NotBoundException, MalformedURLException {
         clients = new ArrayList<>();
         startRegistry();
         model = new ModelManager();
     }
-
     private void startRegistry() throws RemoteException, MalformedURLException {
         Registry registry = LocateRegistry.createRegistry(PORT);
         try {
@@ -35,12 +32,10 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
         Naming.rebind("RMIServer", this);
         System.out.println("Starting server...");
     }
-
     @Override
-    public boolean logIn(String username, String password) throws RemoteException, NotBoundException {
-        // TODO ADD CHECKING FOR CREDENTIALS
-        if (true) {
-            model.logIn(username, password);
+    public boolean logIn(String username, String password) throws RemoteException, NotBoundException, SQLException {
+        // TODO ADD Client Connection
+        if (model.logIn(username, password)) {
             System.out.println("User " + username + " successfully logged in");
             return true;
         } else {
@@ -48,27 +43,22 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
             return false;
         }
     }
-
     @Override
     public void logOut(RemoteModel client) throws RemoteException {
         clients.remove(client);
     }
-
     @Override
     public Customer getCustomerByPassport(int passportNumber) throws RemoteException, NotBoundException {
         return model.getCustomerByPassport(passportNumber);
     }
-
     @Override
     public void addCustomer(Customer customer) throws RemoteException, NotBoundException {
         model.addCustomer(customer);
     }
-
     @Override
     public void removeCustomer(Customer customer) throws RemoteException, NotBoundException {
         model.removeCustomer(customer);
     }
-
     @Override
     public Item getItemById(int itemId) throws RemoteException, NotBoundException {
         return model.getItemById(itemId);
