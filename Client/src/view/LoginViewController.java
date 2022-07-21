@@ -10,6 +10,7 @@ import viewModel.ServerAlert;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class LoginViewController {
     @FXML
@@ -26,14 +27,14 @@ public class LoginViewController {
         this.root = root;
     }
 
-    public void logIn() throws NotBoundException, RemoteException {
-        try {
+    public void logIn() throws NotBoundException, RemoteException, SQLException {
+//        try {
         viewModel.logIn(username.getText(), password.getText());
         // navigation test page
         viewHandler.openView(ViewHandler.EMPLOYEE_VIEW);
-        } catch (NotBoundException | RemoteException e) {
-            (new ServerAlert()).show();
-        }
+//        } catch (NotBoundException | RemoteException e) {
+//            (new ServerAlert()).show();
+//        }
     }
 
     public Region getRoot() {

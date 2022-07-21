@@ -9,6 +9,7 @@ import model.Employee;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ManageEmployeeViewModel {
@@ -36,23 +37,23 @@ public class ManageEmployeeViewModel {
         errorMessage = new SimpleStringProperty();
     }
 
-    public ArrayList<Employee> getEmployees() throws RemoteException, NotBoundException {
+    public ArrayList<Employee> getEmployees() throws RemoteException, NotBoundException, SQLException {
         return model.getEmployees();
     }
 
-    public ArrayList<Employee> getEmployeesByType(String type) throws RemoteException, NotBoundException {
+    public ArrayList<Employee> getEmployeesByType(String type) throws RemoteException, NotBoundException, SQLException {
         return model.getEmployeesByType(type);
     }
 
-    public Employee getEmployeeByUsername(String username) throws RemoteException, NotBoundException {
+    public Employee getEmployeeByUsername(String username) throws RemoteException, NotBoundException, SQLException {
         return model.getEmployeeByUsername(username);
     }
 
-    public void addEmployee(Employee employee) throws RemoteException, NotBoundException {
+    public void addEmployee(Employee employee) throws RemoteException, NotBoundException, SQLException {
         model.addEmployee(employee);
     }
 
-    public void removeEmployee(Employee employee) throws RemoteException, NotBoundException {
+    public void removeEmployee(Employee employee) throws RemoteException, NotBoundException, SQLException {
         model.removeEmployee(employee);
     }
 

@@ -17,6 +17,7 @@ public class MyApplication extends javafx.application.Application {
         } catch (NotBoundException e) {
             throw new RuntimeException(e);
         }
+        System.out.println("Server found");
         ViewModelFactory viewModelFactory = new ViewModelFactory(server);
         Employee testEmployee = new Employee("jim", "Jim", "Slim", "jim@john.com", "google", "Employee");
         viewModelFactory.getManageEmployeeViewModel().setEmployee(testEmployee);

@@ -85,22 +85,32 @@ public class StaffImplementation implements StaffDAO {
 
     @Override
     public Staff logIn(String username, String password) throws SQLException {
-        try(Connection connection = databaseConnection.getConnection()) {
 
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM "  + SCHEMA + "." + TABLE_NAME + " WHERE " + USERNAME + " = ? AND " + PASSWORD + " = ?");
-            statement.setString(1,  username);
-            statement.setString(2, password);
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()) {
-                String resUsername = resultSet.getString(USERNAME);
-                String resEmail = resultSet.getString(EMAIL);
-                String resFName = resultSet.getString(FIRST_NAME);
-                String resLName = resultSet.getString(LAST_NAME);
-                String resStaffType = resultSet.getString(STAFF_TYPE);
-                return new Staff(resUsername, resEmail, resFName, resLName, resStaffType);
-            } else {
-                return null;
-            }
+        System.out.println("2 " + username);
+
+        Connection connection = databaseConnection.getConnection();
+
+        System.out.println("Connection received");
+
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM "  + SCHEMA + "." + TABLE_NAME + " WHERE " + USERNAME + " = ? AND " + PASSWORD + " = ?");
+        statement.setString(1,  username);
+        statement.setString(2, password);
+        ResultSet resultSet = statement.executeQuery();
+
+        System.out.println("Statement executed");
+        if(resultSet.next()) {
+            String resUsername = resultSet.getString(USERNAME);
+            String resEmail = resultSet.getString(EMAIL);
+            String resFName = resultSet.getString(FIRST_NAME);
+            String resLName = resultSet.getString(LAST_NAME);
+            String resStaffType = resultSet.getString(STAFF_TYPE);
+            System.out.println("found employee");
+            connection.close();
+            return new Staff(resUsername, resEmail, resFName, resLName, resStaffType);
+        } else {
+            System.out.println("Not found employee");
+            connection.close();
+            return null;
         }
     }
 

@@ -7,7 +7,6 @@ public class ViewModelFactory {
     private LogInViewModel logInViewModel;
     private ManageItemViewModel manageItemViewModel;
     private ManageEmployeeViewModel manageEmployeeViewModel;
-
     public ViewModelFactory(RemoteModel model) {
         this.model = model;
         this.logInViewModel = new LogInViewModel(model);

@@ -6,6 +6,7 @@ import model.Item;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class ManageItemViewModel {
 
@@ -29,15 +30,15 @@ public class ManageItemViewModel {
         rentedProperty = new SimpleBooleanProperty();
     }
 
-    public Item getItemById(int itemId) throws NotBoundException, RemoteException {
+    public Item getItemById(int itemId) throws NotBoundException, RemoteException, SQLException {
         return model.getItemById(itemId);
     }
 
-    public void addItem(Item item) throws NotBoundException, RemoteException {
+    public void addItem(Item item) throws NotBoundException, RemoteException, SQLException {
         model.addItem(item);
     }
 
-    public void removeItem(Item item) throws NotBoundException, RemoteException {
+    public void removeItem(Item item) throws NotBoundException, RemoteException, SQLException {
         model.removeItem(item);
     }
 

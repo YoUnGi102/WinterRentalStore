@@ -1,6 +1,9 @@
 package model;
 
-public class Staff {
+import java.io.Serializable;
+
+public class Staff implements Serializable {
+
     private final String username;
     private final String email;
     private final String firstName;

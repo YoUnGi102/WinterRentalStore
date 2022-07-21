@@ -22,10 +22,14 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
         startRegistry();
         model = new ModelManager();
     }
+
+    public void test(){
+        System.out.println("Hello world");
+    }
     private void startRegistry() throws RemoteException, MalformedURLException {
         Registry registry = LocateRegistry.createRegistry(PORT);
         try {
-            UnicastRemoteObject.exportObject(this, 0);
+            UnicastRemoteObject.exportObject(this, 1099);
         } catch (RemoteException e) {
             System.out.println("Object already exported");
         }
