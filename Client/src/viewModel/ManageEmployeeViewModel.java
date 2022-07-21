@@ -1,5 +1,7 @@
 package viewModel;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import mediator.RemoteModel;
@@ -10,12 +12,15 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class ManageEmployeeViewModel {
+    private final ObjectProperty<Employee> employee;
     private StringProperty usernameProperty;
     private StringProperty firstNameProperty;
     private StringProperty lastNameProperty;
     private StringProperty emailProperty;
     private StringProperty passwordProperty;
     private StringProperty staffTypeProperty;
+
+    private final StringProperty errorMessage;
 
     private RemoteModel model;
 
@@ -27,6 +32,8 @@ public class ManageEmployeeViewModel {
         emailProperty = new SimpleStringProperty();
         passwordProperty = new SimpleStringProperty();
         staffTypeProperty = new SimpleStringProperty();
+        employee = new SimpleObjectProperty<>();
+        errorMessage = new SimpleStringProperty();
     }
 
     public ArrayList<Employee> getEmployees() throws RemoteException, NotBoundException {
@@ -120,4 +127,44 @@ public class ManageEmployeeViewModel {
     public void setStaffTypeProperty(String staffTypeProperty) {
         this.staffTypeProperty.set(staffTypeProperty);
     }
+
+    public void reset() {
+  try {
+            Employee selectedEmployee = employee.get();
+            firstNameProperty.set(selectedEmployee.getFirstName());
+            lastNameProperty.set(selectedEmployee.getLastName());
+            usernameProperty.set(selectedEmployee.getUsername());
+            emailProperty.set(selectedEmployee.getEmail());
+            passwordProperty.set(selectedEmployee.getPassword());
+            staffTypeProperty.set(selectedEmployee.getStaffType());
+        } catch (Exception e) {
+            errorMessage.set("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public Employee getEmployee() {
+        return employee.get();
+    }
+
+    public ObjectProperty<Employee> employeeProperty() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee.set(employee);
+    }
+
+    public String getErrorMessage() {
+        return errorMessage.get();
+    }
+
+    public StringProperty errorMessageProperty() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage.set(errorMessage);
+    }
+
 }

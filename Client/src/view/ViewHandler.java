@@ -8,6 +8,7 @@ import viewModel.ViewModelFactory;
 public class ViewHandler {
 
     public static final String LOGIN_VIEW = "login-view.fxml";
+    public static final String EMPLOYEE_VIEW = "manage_employee_view.fxml";
     private final ViewFactory viewFactory;
     private final Scene scene;
 
@@ -28,16 +29,19 @@ public class ViewHandler {
     public void openView(String viewId) {
 
         Region root = viewFactory.loadLoginView(); // only opens the login view for now
-        /*
-        switch (viewId){
-            case LOGIN_VIEW:
+
+        switch (viewId) {
+            case LOGIN_VIEW: {
                 root = viewFactory.loadLoginView();
+                break;
+            }
+            case EMPLOYEE_VIEW:
+                root = viewFactory.loadEmployeeView();
                 break;
             default:
                 throw new IllegalArgumentException("View with this ID does not exist");
         }
 
-         */
         scene.setRoot(root);
         stage.setScene(scene);
         stage.sizeToScene();
