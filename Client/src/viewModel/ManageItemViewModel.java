@@ -33,11 +33,6 @@ public class ManageItemViewModel {
     public Item getItemById(int itemId) throws NotBoundException, RemoteException, SQLException {
         return model.getItemById(itemId);
     }
-
-    public void addItem(Item item) throws NotBoundException, RemoteException, SQLException {
-        model.addItem(item);
-    }
-
     public void removeItem(Item item) throws NotBoundException, RemoteException, SQLException {
         model.removeItem(item);
     }

@@ -2,28 +2,30 @@ package view;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Region;
+import viewModel.ManageItemViewModel;
 import viewModel.ViewModelFactory;
 
 import java.io.IOError;
 import java.io.IOException;
 
-import static view.ViewHandler.EMPLOYEE_VIEW;
-import static view.ViewHandler.LOGIN_VIEW;
+import static view.ViewHandler.*;
 
 
 public class ViewFactory {
 
     private final ViewHandler viewHandler;
     private final ViewModelFactory viewModelFactory;
-
-    private LoginViewController loginViewController;
-
     private ManageEmployeeViewController manageEmployeeViewController;
+    private LoginViewController loginViewController;
+    private ManageItemViewController manageItemViewController;
+    private AddItemViewController addItemViewController;
 
     public ViewFactory(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
         this.viewHandler = viewHandler;
         this.viewModelFactory = viewModelFactory;
         this.loginViewController = null;
+        this.addItemViewController = null;
+        this.manageItemViewController = null;
     }
 
     public Region loadLoginView() {
@@ -41,8 +43,7 @@ public class ViewFactory {
         return loginViewController.getRoot();
     }
 
-    public Region loadEmployeeView()
-    {
+    public Region loadEmployeeView() {
         if (manageEmployeeViewController == null) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(EMPLOYEE_VIEW));
@@ -55,5 +56,35 @@ public class ViewFactory {
             }
         }
         return manageEmployeeViewController.getRoot();
+    }
+
+    public Region loadManageItemView() {
+        if (manageItemViewController == null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(MANAGE_ITEM_VIEW));
+            try {
+                Region root = loader.load();
+                manageItemViewController = loader.getController();
+                manageItemViewController.init(viewHandler, viewModelFactory.getManageItemViewModel(), root);
+            } catch (IOException e) {
+                throw new IOError(e);
+            }
+        }
+        return manageItemViewController.getRoot();
+    }
+
+    public Region loadAddItemView() {
+        if (addItemViewController == null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(ADD_ITEM_VIEW));
+            try {
+                Region root = loader.load();
+                addItemViewController = loader.getController();
+                addItemViewController.init(viewHandler, viewModelFactory.getAddItemViewModel(), root);
+            } catch (IOException e) {
+                throw new IOError(e);
+            }
+        }
+        return addItemViewController.getRoot();
     }
 }

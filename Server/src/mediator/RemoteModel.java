@@ -1,5 +1,6 @@
 package mediator;
 
+import javafx.collections.ObservableList;
 import model.Customer;
 import model.Employee;
 import model.Item;
@@ -9,6 +10,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface RemoteModel extends Remote {
 
@@ -25,9 +27,10 @@ public interface RemoteModel extends Remote {
 
     Item getItemById(int itemId) throws RemoteException, NotBoundException, SQLException;
 
-    void addItem(Item item) throws RemoteException, NotBoundException, SQLException;
-
+    void addItem(Item item, int numberOfPieces) throws RemoteException, NotBoundException, SQLException;
     void removeItem(Item item) throws RemoteException, NotBoundException, SQLException;
+    ArrayList<String> getItemTypes() throws RemoteException, SQLException;
+    HashMap<String, String> getTypeUnitPairs() throws RemoteException, SQLException;
 
     ArrayList<Employee> getEmployees() throws RemoteException, NotBoundException, SQLException;
 

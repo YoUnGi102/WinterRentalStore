@@ -1,5 +1,6 @@
 package mediator;
 
+import javafx.collections.ObservableList;
 import model.*;
 
 import java.net.MalformedURLException;
@@ -11,6 +12,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Server extends UnicastRemoteObject implements RemoteModel {
     private static final long serialVersionUID = 1L;
@@ -69,13 +71,23 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
     }
 
     @Override
-    public void addItem(Item item) throws RemoteException, NotBoundException {
-        model.addItem(item);
+    public void addItem(Item item, int numberOfPieces) throws RemoteException, NotBoundException, SQLException {
+        model.addItem(item, numberOfPieces);
     }
 
     @Override
-    public void removeItem(Item item) throws RemoteException, NotBoundException {
+    public void removeItem(Item item) throws RemoteException, NotBoundException, SQLException {
         model.removeItem(item);
+    }
+
+    @Override
+    public ArrayList<String> getItemTypes() throws RemoteException, SQLException {
+        return model.getItemTypes();
+    }
+
+    @Override
+    public HashMap<String, String> getTypeUnitPairs() throws RemoteException, SQLException {
+        return model.getTypeUnitPairs();
     }
 
     @Override

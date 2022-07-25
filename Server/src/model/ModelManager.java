@@ -1,13 +1,14 @@
 package model;
 
 
-import databaseAdapters.StaffDAO;
-import databaseAdapters.StaffImplementation;
+import databaseAdapters.*;
+import javafx.collections.ObservableList;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class ModelManager implements Model {
 
@@ -17,10 +18,14 @@ public class ModelManager implements Model {
     private EmployeeList employeeList;
 
     private StaffDAO staffDAO;
+    private TypeDAO typeDAO;
+    private ItemDAO itemDAO;
     private Staff currentUser;
     
     public ModelManager() {
         staffDAO = new StaffImplementation();
+        itemDAO = new ItemImplementation();
+        typeDAO = new TypeImplementation();
 
         customerList = new CustomerList();
         itemList = new ItemList();
@@ -29,12 +34,10 @@ public class ModelManager implements Model {
 
     @Override
     public boolean logIn(String username, String password) throws RemoteException, NotBoundException, SQLException {
-        System.out.println("1 " + username);
         currentUser = staffDAO.logIn(username, password);
         return currentUser != null;
         // TODO ADD EXCEPTION IF WRONG PASSWORD
     }
-
     @Override
     public void logOut() {
         // TODO
@@ -61,13 +64,23 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addItem(Item item) throws RemoteException, NotBoundException {
-        itemList.addItem(item);
+    public void addItem(Item item, int numberOfPieces) throws RemoteException, NotBoundException, SQLException {
+        itemDAO.insert(item, numberOfPieces);
     }
 
     @Override
-    public void removeItem(Item item) throws RemoteException, NotBoundException {
-        itemList.removeItem(item);
+    public void removeItem(Item item) throws RemoteException, NotBoundException, SQLException {
+        itemDAO.delete(item);
+    }
+
+    @Override
+    public ArrayList<String> getItemTypes() throws SQLException {
+        return typeDAO.selectTypes();
+    }
+
+    @Override
+    public HashMap<String, String> getTypeUnitPairs() throws SQLException {
+        return typeDAO.selectTypeUnitPairs();
     }
 
     @Override

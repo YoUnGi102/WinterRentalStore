@@ -6,16 +6,16 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    private static final String USERNAME = "egcvfynf";
-    private static final String PASSWORD = "SJwK3lHGr4gYSu7ipKZRzS6XAVuj1IpH";
-    private static final String DATABASE = "egcvfynf";
+    private static final String USERNAME = "cgvfnzab";
+    private static final String PASSWORD = "9tlfavFzzVjEzdgOQrSG-gRxqj-SDNLJ";
+    private static final String DATABASE = "cgvfnzab";
     private static final String HOST = "abul.db.elephantsql.com";
     private static final String URL = "jdbc:postgresql://"+HOST+"/"+DATABASE;
     public static final String SCHEMA = "public";
 
     private static final DatabaseConnection instance = new DatabaseConnection();
 
-    public DatabaseConnection(){
+    private DatabaseConnection(){
         try {
             Class.forName("org.postgresql.Driver");
         }

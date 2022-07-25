@@ -1,13 +1,16 @@
 package view;
 
 
+import alerts.DatabaseAlert;
+import alerts.ErrorAlert;
+import alerts.ServerAlert;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import viewModel.LogInViewModel;
-import viewModel.ServerAlert;
 
+import javax.xml.crypto.Data;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -27,14 +30,19 @@ public class LoginViewController {
         this.root = root;
     }
 
-    public void logIn() throws NotBoundException, RemoteException, SQLException {
-//        try {
-        viewModel.logIn(username.getText(), password.getText());
-        // navigation test page
-        viewHandler.openView(ViewHandler.EMPLOYEE_VIEW);
-//        } catch (NotBoundException | RemoteException e) {
-//            (new ServerAlert()).show();
-//        }
+    public void logIn() {
+
+        try {
+            if(viewModel.logIn(username.getText(), password.getText())){
+                viewHandler.openView(ViewHandler.EMPLOYEE_VIEW);
+            }else{
+                new ErrorAlert("Username or password is incorrect");
+            }
+        }catch (NotBoundException | RemoteException e){
+            new ServerAlert();
+        }catch (SQLException e){
+            new DatabaseAlert();
+        }
     }
 
     public Region getRoot() {

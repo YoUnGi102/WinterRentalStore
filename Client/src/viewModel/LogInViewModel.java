@@ -7,7 +7,6 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 public class LogInViewModel {
-
     private final RemoteModel model;
     public LogInViewModel(RemoteModel model) {
         this.model = model;

@@ -9,7 +9,6 @@ public class Employee implements Serializable {
     private String email;
     private String password;
     private String staffType;
-
     public Employee(String username, String firstName, String lastName, String email, String password, String staffType) {
         this.username = username;
         this.firstName = firstName;
@@ -18,7 +17,6 @@ public class Employee implements Serializable {
         this.password = password;
         this.staffType = staffType;
     }
-
     public String getUsername() {
         return username;
     }
