@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -41,6 +42,11 @@ public class ModelManager implements Model {
     @Override
     public void logOut() {
         // TODO
+    }
+
+    @Override
+    public void addType(String type, String sizeUnit) throws RemoteException, NotBoundException, SQLException {
+        typeDAO.insert(type,sizeUnit);
     }
 
     @Override
@@ -82,7 +88,10 @@ public class ModelManager implements Model {
     public HashMap<String, String> getTypeUnitPairs() throws SQLException {
         return typeDAO.selectTypeUnitPairs();
     }
-
+    @Override
+    public ArrayList<Item> getItems(LocalDateTime start, LocalDateTime end, String type, int minSize, int maxSize, double minPrice, double maxPrice) throws RemoteException, NotBoundException, SQLException {
+        return itemDAO.select(start, end, type, minSize, maxSize, minPrice, maxPrice);
+    }
     @Override
     public ArrayList<Employee> getEmployees() throws RemoteException, NotBoundException {
         return employeeList.getEmployees();

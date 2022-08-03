@@ -44,4 +44,17 @@ public class Item implements Serializable {
         return pricePerDay;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Item){
+            Item item = (Item) obj;
+            return
+                itemId == item.itemId &&
+                name.equals(item.name) &&
+                type.equals(item.type) &&
+                size == item.size &&
+                pricePerDay == item.pricePerDay;
+        }
+        else return false;
+    }
 }

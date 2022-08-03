@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.FilterItemsViewController">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d2d2d2;">
+         <children>
+            <VBox prefHeight="142.0" prefWidth="1082.0">
+               <children>
+                  <HBox prefHeight="73.0" prefWidth="1080.0">
+                     <children>
+                        <HBox prefHeight="73.0" prefWidth="361.0">
+                           <children>
+                              <Label text="start">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" top="25.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <DatePicker fx:id="startDate" prefHeight="31.0" prefWidth="117.0">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </DatePicker>
+                              <ChoiceBox fx:id="startTime" prefHeight="30.0" prefWidth="80.0">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </ChoiceBox>
+                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="20.0" text="h">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="500.0">
+                           <children>
+                              <Label text="end">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" top="25.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <DatePicker fx:id="endDate" prefHeight="31.0" prefWidth="117.0">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </DatePicker>
+                              <ChoiceBox fx:id="endTime" prefHeight="30.0" prefWidth="80.0">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </ChoiceBox>
+                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="20.0" text="h">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Button mnemonicParsing="false" onAction="#search" prefHeight="50.0" prefWidth="100.0" text="Search">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="50.0" right="20.0" top="20.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="66.0" prefWidth="1080.0">
+                     <children>
+                        <Label text="type">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="25.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="type" prefWidth="150.0">
+                           <HBox.margin>
+                              <Insets bottom="20.0" right="20.0" top="20.0" />
+                           </HBox.margin>
+                        </ChoiceBox>
+                        <Label text="min size:">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="20.0" top="25.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="sizeMin" prefWidth="75.0">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Label text="max size:">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="20.0" top="25.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="sizeMax" prefWidth="75.0">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="20.0" top="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Label text="min price:">
+                           <HBox.margin>
+                              <Insets bottom="25.0" left="50.0" right="25.0" top="25.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="priceMin" prefWidth="75.0">
+                           <HBox.margin>
+                              <Insets bottom="20.0" right="10.0" top="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Label text="max price:">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="25.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="priceMax" prefWidth="75.0">
+                           <HBox.margin>
+                              <Insets bottom="20.0" right="20.0" top="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <TableView fx:id="itemsList" prefHeight="480.0" prefWidth="1040.0">
+        <columns>
+          <TableColumn fx:id="nameColumn" prefWidth="260.0" text="Name" />
+          <TableColumn fx:id="typeColumn" prefWidth="260.0" text="Type" />
+            <TableColumn fx:id="sizeColumn" prefWidth="260.0" text="Size" />
+            <TableColumn fx:id="priceColumn" prefWidth="260.0" text="Price" />
+        </columns>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </VBox.margin>
+      </TableView>
+      <HBox prefHeight="76.0" prefWidth="1080.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#cancel" prefHeight="37.0" prefWidth="92.0" text="Cancel">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#add" text="Add To Cart">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="650.0" right="40.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+            <Label fx:id="itemsNum" text="0">
+               <HBox.margin>
+                  <Insets bottom="20.0" top="25.0" />
+               </HBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#cart" text="Shopping Cart">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="10.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>

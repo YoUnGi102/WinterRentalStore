@@ -10,6 +10,6 @@ public interface TypeDAO {
 
     ArrayList<String> selectTypes() throws SQLException;
     HashMap<String, String> selectTypeUnitPairs() throws SQLException;
-    void insert(String type, String sizeUnit);
+    void insert(String type, String sizeUnit) throws SQLException;
 
 }

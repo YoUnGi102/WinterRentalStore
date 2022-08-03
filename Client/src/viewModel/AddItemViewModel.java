@@ -29,9 +29,8 @@ public class AddItemViewModel {
     public void addItem(Item item, int numberOfPieces) throws SQLException, NotBoundException, RemoteException {
         model.addItem(item, numberOfPieces);
     }
-
-    public void addType(String type, String sizeUnit){
-        // TODO ADD TYPE
+    public void addType(String type, String sizeUnit) throws SQLException, NotBoundException, RemoteException {
+        model.addType(type, sizeUnit);
     }
 
 

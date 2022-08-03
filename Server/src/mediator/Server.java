@@ -11,6 +11,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,10 +24,6 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
         clients = new ArrayList<>();
         startRegistry();
         model = new ModelManager();
-    }
-
-    public void test(){
-        System.out.println("Hello world");
     }
     private void startRegistry() throws RemoteException, MalformedURLException {
         Registry registry = LocateRegistry.createRegistry(PORT);
@@ -50,8 +47,8 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
         }
     }
     @Override
-    public void logOut(RemoteModel client) throws RemoteException {
-        clients.remove(client);
+    public void logOut() throws RemoteException {
+        // TODO REMOVE CLIENT
     }
     @Override
     public Customer getCustomerByPassport(int passportNumber) throws RemoteException, NotBoundException {
@@ -66,6 +63,10 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
         model.removeCustomer(customer);
     }
     @Override
+    public ArrayList<Item> getItems(LocalDateTime start, LocalDateTime end, String type, int minSize, int maxSize, double minPrice, double maxPrice) throws RemoteException, NotBoundException, SQLException {
+        return model.getItems(start, end, type, minSize, maxSize, minPrice, maxPrice);
+    }
+    @Override
     public Item getItemById(int itemId) throws RemoteException, NotBoundException {
         return model.getItemById(itemId);
     }
@@ -73,6 +74,11 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
     @Override
     public void addItem(Item item, int numberOfPieces) throws RemoteException, NotBoundException, SQLException {
         model.addItem(item, numberOfPieces);
+    }
+
+    @Override
+    public void addType(String type, String sizeUnit) throws RemoteException, NotBoundException, SQLException {
+        model.addType(type, sizeUnit);
     }
 
     @Override

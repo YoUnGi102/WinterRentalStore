@@ -4,10 +4,10 @@ import javafx.collections.ObservableList;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.util.HashMap;
-
 public interface Model {
 
     // LOGIN
@@ -15,17 +15,18 @@ public interface Model {
     void logOut();
 
     // MANAGE ITEM AND TYPES
-
+    void addType(String type, String sizeUnit) throws RemoteException, NotBoundException, SQLException;
     void addItem(Item item, int numberOfPieces) throws RemoteException, NotBoundException, SQLException;
     void removeItem(Item item) throws RemoteException, NotBoundException, SQLException;
     ArrayList<String> getItemTypes() throws RemoteException, SQLException;
     HashMap<String, String> getTypeUnitPairs() throws RemoteException, SQLException;
 
+    ArrayList<Item> getItems(LocalDateTime start, LocalDateTime end, String type, int minSize, int maxSize, double minPrice, double maxPrice) throws RemoteException, NotBoundException, SQLException;
+
     // MANAGE CUSTOMER
     Customer getCustomerByPassport(int passportNumber) throws RemoteException, NotBoundException;
     void addCustomer(Customer customer) throws RemoteException, NotBoundException;
     void removeCustomer(Customer customer) throws RemoteException, NotBoundException;
-
     Item getItemById(int itemId) throws RemoteException, NotBoundException;
 
     ArrayList<Employee> getEmployees() throws RemoteException, NotBoundException;

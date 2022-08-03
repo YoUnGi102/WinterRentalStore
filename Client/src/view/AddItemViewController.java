@@ -29,11 +29,8 @@ import java.util.HashMap;
 
 public class AddItemViewController {
 
-    @FXML
-    private ChoiceBox<String> type;
-
-    @FXML
-    private TextField name, customType, customUnit, size, price, pieces;
+    @FXML private ChoiceBox<String> type;
+    @FXML private TextField name, customType, customUnit, size, price, pieces;
 
     @FXML
     private HBox custom;
@@ -95,7 +92,7 @@ public class AddItemViewController {
     }
 
     @FXML
-    void confirm() {
+    void confirm() throws SQLException, NotBoundException, RemoteException {
 
             if(name.getText().equals("") || type.getValue() == null ||
                     size.getText().equals("") ||
@@ -117,7 +114,7 @@ public class AddItemViewController {
                     }
                 }
                 sizeUnit = customUnit.getText();
-                // TODO viewModel.addType(type, sizeUnit);
+                viewModel.addType(type, sizeUnit);
             }
 
             Integer size = null, pieces = null;

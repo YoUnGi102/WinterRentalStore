@@ -17,6 +17,7 @@ public class MyApplication extends Application {
         }
         FXMLLoader fxmlLoader = new FXMLLoader(MyApplication.class.getResource("view/hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        stage.setResizable(false);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();

@@ -6,10 +6,15 @@ import javafx.stage.Stage;
 import viewModel.ViewModelFactory;
 
 public class ViewHandler {
-    public static final String EMPLOYEE_VIEW = "manage_employee_view.fxml";
+    public static final String EMPLOYEE_VIEW = "manage-employee-view.fxml";
     public static final String LOGIN_VIEW = "login-view.fxml";
     public static final String ADD_ITEM_VIEW = "add-item-view.fxml";
     public static final String MANAGE_ITEM_VIEW = "manage-item-view.fxml";
+    public static final String MENU_VIEW = "menu-view.fxml";
+
+    public static final String FILTER_ITEMS_VIEW = "filter-items-view.fxml";
+
+    public static final String RENT_VIEW = "rent-view.fxml";
     private final ViewFactory viewFactory;
     private final Scene scene;
 
@@ -24,12 +29,12 @@ public class ViewHandler {
 
     public void start(Stage stage) {
         this.stage = stage;
-        openView(MANAGE_ITEM_VIEW);
+        openView(LOGIN_VIEW);
     }
 
     public void openView(String viewId) {
 
-        Region root = null;
+        Region root;
 
         switch (viewId) {
             case LOGIN_VIEW:
@@ -43,6 +48,15 @@ public class ViewHandler {
                 break;
             case ADD_ITEM_VIEW:
                 root = viewFactory.loadAddItemView();
+                break;
+            case MENU_VIEW:
+                root = viewFactory.loadMenuView();
+                break;
+            case FILTER_ITEMS_VIEW:
+                root = viewFactory.loadFilterItemsView();
+                break;
+            case RENT_VIEW:
+                root = viewFactory.loadRentView();
                 break;
             default:
                 throw new IllegalArgumentException("View with this ID does not exist");

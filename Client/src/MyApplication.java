@@ -11,7 +11,8 @@ public class MyApplication extends javafx.application.Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        RemoteModel server = null;
+        stage.setResizable(false);
+        RemoteModel server;
         try {
             server = (RemoteModel) java.rmi.Naming.lookup("rmi://localhost:1099/RMIServer");
         } catch (NotBoundException e) {

@@ -34,7 +34,7 @@ public class LoginViewController {
 
         try {
             if(viewModel.logIn(username.getText(), password.getText())){
-                viewHandler.openView(ViewHandler.EMPLOYEE_VIEW);
+                viewHandler.openView(ViewHandler.MENU_VIEW);
             }else{
                 new ErrorAlert("Username or password is incorrect");
             }

@@ -9,25 +9,22 @@ import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface RemoteModel extends Remote {
 
-    void test() throws RemoteException;
     boolean logIn(String username, String password) throws RemoteException, NotBoundException, SQLException;
-
-    void logOut(RemoteModel clientI) throws RemoteException, SQLException;
-
+    void logOut() throws RemoteException, SQLException;
     Customer getCustomerByPassport(int passportNumber) throws RemoteException, NotBoundException, SQLException;
-
     void addCustomer(Customer customer) throws RemoteException, NotBoundException, SQLException;
-
     void removeCustomer(Customer customer) throws RemoteException, NotBoundException, SQLException;
 
+    ArrayList<Item> getItems(LocalDateTime start, LocalDateTime end, String type, int minSize, int maxSize, double minPrice, double maxPrice) throws RemoteException, NotBoundException, SQLException;
     Item getItemById(int itemId) throws RemoteException, NotBoundException, SQLException;
-
     void addItem(Item item, int numberOfPieces) throws RemoteException, NotBoundException, SQLException;
+    void addType(String type, String sizeUnit) throws RemoteException, NotBoundException, SQLException;
     void removeItem(Item item) throws RemoteException, NotBoundException, SQLException;
     ArrayList<String> getItemTypes() throws RemoteException, SQLException;
     HashMap<String, String> getTypeUnitPairs() throws RemoteException, SQLException;

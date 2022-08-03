@@ -12,7 +12,6 @@ public class LogInViewModel {
         this.model = model;
     }
     public boolean logIn(String username, String password) throws NotBoundException, RemoteException, SQLException {
-        model.test();
         return model.logIn(username, password);
     }
 }

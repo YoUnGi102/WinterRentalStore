@@ -9,6 +9,7 @@ public class Item implements Serializable {
     private int size;
     private String sizeUnit;
     private double pricePerDay;
+
     public Item(int itemId, String name, String type, int size, String sizeUnit, double pricePerDay) {
         this.itemId = itemId;
         this.name = name;
@@ -24,7 +25,6 @@ public class Item implements Serializable {
         this.sizeUnit = sizeUnit;
         this.pricePerDay = pricePerDay;
     }
-
     public int getItemId() {
         return itemId;
     }
@@ -44,4 +44,17 @@ public class Item implements Serializable {
         return pricePerDay;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Item){
+            Item item = (Item) obj;
+            return
+                    itemId == item.itemId &&
+                            name.equals(item.name) &&
+                            type.equals(item.type) &&
+                            size == item.size &&
+                            pricePerDay == item.pricePerDay;
+        }
+        else return false;
+    }
 }

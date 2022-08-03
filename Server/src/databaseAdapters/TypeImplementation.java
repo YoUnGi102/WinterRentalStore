@@ -65,7 +65,15 @@ public class TypeImplementation implements TypeDAO {
     }
 
     @Override
-    public void insert(String type, String sizeUnit) {
+    public void insert(String type, String sizeUnit) throws SQLException {
 
+        Connection connection = databaseConnection.getConnection();
+
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO " + SCHEMA +"."+TABLE_NAME + "(" +TYPE + ", " + SIZE_UNIT+") VALUES (?,?)");
+        statement.setString(1, type);
+        statement.setString(2, sizeUnit);
+        statement.executeUpdate();
+
+        connection.close();
     }
 }

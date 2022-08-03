@@ -3,6 +3,7 @@ package view;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Region;
 import viewModel.ManageItemViewModel;
+import viewModel.RentViewModel;
 import viewModel.ViewModelFactory;
 
 import java.io.IOError;
@@ -19,6 +20,11 @@ public class ViewFactory {
     private LoginViewController loginViewController;
     private ManageItemViewController manageItemViewController;
     private AddItemViewController addItemViewController;
+    private MenuViewController menuViewController;
+
+    private RentViewController rentViewController;
+
+    private FilterItemsViewController filterItemsViewController;
 
     public ViewFactory(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
         this.viewHandler = viewHandler;
@@ -26,6 +32,9 @@ public class ViewFactory {
         this.loginViewController = null;
         this.addItemViewController = null;
         this.manageItemViewController = null;
+        this.menuViewController = null;
+        this.filterItemsViewController = null;
+        this.rentViewController = null;
     }
 
     public Region loadLoginView() {
@@ -86,5 +95,50 @@ public class ViewFactory {
             }
         }
         return addItemViewController.getRoot();
+    }
+
+    public Region loadMenuView(){
+        if(menuViewController == null){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(MENU_VIEW));
+            try {
+                Region root = loader.load();
+                menuViewController = loader.getController();
+                menuViewController.init(viewHandler, viewModelFactory.getMenuViewModel(), root);
+            } catch (IOException e) {
+                throw new IOError(e);
+            }
+        }
+        return menuViewController.getRoot();
+    }
+
+    public Region loadFilterItemsView(){
+        if(filterItemsViewController == null){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(FILTER_ITEMS_VIEW));
+            try {
+                Region root = loader.load();
+                filterItemsViewController = loader.getController();
+                filterItemsViewController.init(viewHandler, viewModelFactory.getFilterItemsViewModel(), root);
+            } catch (IOException e) {
+                throw new IOError(e);
+            }
+        }
+        return filterItemsViewController.getRoot();
+    }
+
+    public Region loadRentView(){
+        if(rentViewController == null){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(RENT_VIEW));
+            try {
+                Region root = loader.load();
+                rentViewController = loader.getController();
+                rentViewController.init(viewHandler, viewModelFactory.getRentViewModel(), root);
+            } catch (IOException e) {
+                throw new IOError(e);
+            }
+        }
+        return rentViewController.getRoot();
     }
 }

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CustomerList {
     private ArrayList<Customer> customers;
@@ -9,9 +10,9 @@ public class CustomerList {
         customers = new ArrayList<Customer>();
     }
 
-    public Customer getCustomerByPassport(int passportNumber) {
+    public Customer getCustomerByPassport(String passportNumber) {
         for (Customer customer : customers) {
-            if (customer.getPassportNumber() == passportNumber) {
+            if (Objects.equals(customer.getPassportNumber(), passportNumber)) {
                 return customer;
             }
         }
