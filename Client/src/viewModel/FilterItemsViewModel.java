@@ -64,9 +64,6 @@ public class FilterItemsViewModel {
         return model.getItemTypes();
     }
 
-    public HashMap<String, String> getTypeUnitPairs() throws SQLException, RemoteException {
-        return model.getTypeUnitPairs();
-    }
     public void clear() {
         shoppingCart.getValue().clear();
     }

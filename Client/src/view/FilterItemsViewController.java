@@ -20,6 +20,7 @@ import viewModel.ItemTableView;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
@@ -39,8 +40,6 @@ public class FilterItemsViewController {
     private ChoiceBox<String> endTime;
     @FXML
     private ChoiceBox<String> type;
-
-
 
     @FXML
     private TextField sizeMin, sizeMax, priceMin, priceMax;
@@ -97,6 +96,12 @@ public class FilterItemsViewController {
         sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
+        LocalDate start = LocalDate.of(2022, 8, 1);
+        startDate.setValue(start);
+        LocalDate end = LocalDate.of(2022, 8, 2);
+        endDate.setValue(end);
+        startTime.setValue("8");
+        endTime.setValue("8");
     };
 
     @FXML
@@ -126,6 +131,10 @@ public class FilterItemsViewController {
         try {
             start = LocalDateTime.of(startDate.getValue(), LocalTime.of(Integer.parseInt(startTime.getValue()), 0));
             end = LocalDateTime.of(endDate.getValue(), LocalTime.of(Integer.parseInt(endTime.getValue()), 0));
+            if(end.isBefore(start)){
+                new ErrorAlert("The start date and time has to be before end date and time");
+                return;
+            }
         }catch (NullPointerException | NumberFormatException e){
             new ErrorAlert("You have to specify start and end date of the rent");
             return;
@@ -138,10 +147,17 @@ public class FilterItemsViewController {
             int sizeMax = (this.sizeMax.getText().equals("")) ? 1000000 : Integer.parseInt(this.sizeMax.getText());
             double priceMin = (this.priceMin.getText().equals("")) ? 0 : Double.parseDouble(this.priceMin.getText());
             double priceMax = (this.priceMax.getText().equals("")) ? 1000000 : Double.parseDouble(this.priceMax.getText());
+            if(sizeMax < sizeMin){
+                new ErrorAlert("Minimal size has to be lower than maximal size");
+                return;
+            }
+            if(priceMax < priceMin){
+                new ErrorAlert("Minimal price has to be lower than maximal price");
+                return;
+            }
             viewModel.getItems(start, end, type, sizeMin, sizeMax, priceMin, priceMax);
         }catch (NumberFormatException e) {
-            throw e;
-//            new ErrorAlert("Incorrect format of the search information");
+            new ErrorAlert("Incorrect format of the search information");
         }catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (NotBoundException e) {

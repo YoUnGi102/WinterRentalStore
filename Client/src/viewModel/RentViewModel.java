@@ -11,15 +11,16 @@ import model.Item;
 public class RentViewModel {
 
     private final RemoteModel model;
-    private ObjectProperty<ObservableList<Item>> shoppingCart;
+    private ObjectProperty<ObservableList<ItemTableView>> shoppingCart;
     private ObjectProperty<Customer> customer;
 
     public RentViewModel(RemoteModel model){
+        customer = new SimpleObjectProperty<>();
         shoppingCart = new SimpleObjectProperty<>(FXCollections.observableArrayList());
         this.model = model;
     }
 
-    public void bindShoppingCart(ObjectProperty<ObservableList<Item>> shoppingCart){
+    public void bindShoppingCart(ObjectProperty<ObservableList<ItemTableView>> shoppingCart){
         this.shoppingCart.bindBidirectional(shoppingCart);
     }
 

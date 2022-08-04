@@ -2,10 +2,13 @@ package view;
 
 import alerts.ErrorAlert;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import model.Customer;
 import viewModel.FilterItemsViewModel;
@@ -31,7 +34,9 @@ public class RentViewController {
     private RentViewModel viewModel;
     private Region root;
 
+    private ObjectProperty<Customer> customer;
     public void init(ViewHandler handler, RentViewModel viewModel, Region root){
+        customer = new SimpleObjectProperty<>();
         this.handler = handler;
         this.viewModel = viewModel;
         this.root = root;
@@ -42,6 +47,15 @@ public class RentViewController {
             phone.setText(customer.getPhoneNumber());
             passport.setText(customer.getPassportNumber());
         }
+
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        viewModel.bindShoppingCart(items.itemsProperty());
+        viewModel.bindCustomer(customer);
+
     }
 
     @FXML
@@ -51,7 +65,7 @@ public class RentViewController {
 
     @FXML
     void back() {
-        handler.openView("");
+        handler.openView(ViewHandler.FILTER_ITEMS_VIEW);
     }
 
     @FXML
