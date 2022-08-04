@@ -8,10 +8,12 @@ import mediator.RemoteModel;
 import model.Customer;
 import model.Item;
 
+import java.time.LocalDateTime;
+
 public class RentViewModel {
 
     private final RemoteModel model;
-    private ObjectProperty<ObservableList<ItemTableView>> shoppingCart;
+    private ObjectProperty<ObservableList<Item>> shoppingCart;
     private ObjectProperty<Customer> customer;
 
     public RentViewModel(RemoteModel model){
@@ -19,15 +21,20 @@ public class RentViewModel {
         shoppingCart = new SimpleObjectProperty<>(FXCollections.observableArrayList());
         this.model = model;
     }
-
-    public void bindShoppingCart(ObjectProperty<ObservableList<ItemTableView>> shoppingCart){
+    public void bindShoppingCart(ObjectProperty<ObservableList<Item>> shoppingCart){
         this.shoppingCart.bindBidirectional(shoppingCart);
     }
-
     public void bindCustomer(ObjectProperty<Customer> customer){
         this.customer.bindBidirectional(customer);
     }
 
+    public void bindStartDate(ObjectProperty<LocalDateTime> start){
+
+    }
+
+    public void bindEndDate(ObjectProperty<LocalDateTime> end){
+
+    }
     public Customer getCustomer() {
         return customer.get();
     }

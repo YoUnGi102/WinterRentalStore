@@ -24,7 +24,7 @@ public class FilterItemsViewModel {
 
     private final RemoteModel model;
     private ObjectProperty<ObservableList<Item>> shoppingCart;
-    private ObjectProperty<ObservableList<ItemTableView>> searchedItems;
+    private ObjectProperty<ObservableList<Item>> searchedItems;
     private IntegerProperty itemsAmount;
 
     public FilterItemsViewModel(RemoteModel model, RentViewModel rentViewModel){
@@ -35,7 +35,7 @@ public class FilterItemsViewModel {
         this.model = model;
     }
 
-    public void bindSearchedItems(ObjectProperty<ObservableList<ItemTableView>> searchedItems){
+    public void bindSearchedItems(ObjectProperty<ObservableList<Item>> searchedItems){
         this.searchedItems.bindBidirectional(searchedItems);
     }
 
@@ -45,9 +45,7 @@ public class FilterItemsViewModel {
 
     public void getItems(LocalDateTime start, LocalDateTime end, String type, int minSize, int maxSize, double minPrice, double maxPrice) throws SQLException, NotBoundException, RemoteException {
         ArrayList<Item> items = model.getItems(start, end, type, minSize, maxSize, minPrice, maxPrice);
-        ObservableList<ItemTableView> searchData = FXCollections.observableArrayList();
-        for (Item item : items)
-            searchData.add(new ItemTableView(item));
+        ObservableList<Item> searchData = FXCollections.observableArrayList(items);
         searchedItems.set(searchData);
     }
 

@@ -45,16 +45,16 @@ public class FilterItemsViewController {
     private TextField sizeMin, sizeMax, priceMin, priceMax;
 
     @FXML
-    private TableView<ItemTableView> itemsList;
+    private TableView<Item> itemsList;
 
     @FXML
-    private TableColumn<ItemTableView, String> nameColumn, typeColumn;
+    private TableColumn<Item, String> nameColumn, typeColumn;
 
     @FXML
-    private TableColumn<ItemTableView, Integer> sizeColumn;
+    private TableColumn<Item, Integer> sizeColumn;
 
     @FXML
-    private TableColumn<ItemTableView, Double> priceColumn;
+    private TableColumn<Item, Double> priceColumn;
 
     @FXML
     private Label itemsNum;
@@ -107,7 +107,7 @@ public class FilterItemsViewController {
     @FXML
     void add() {
         try{
-            viewModel.addToBasket(itemsList.getSelectionModel().getSelectedItem().getItem());
+            viewModel.addToBasket(itemsList.getSelectionModel().getSelectedItem());
         }catch (DuplicateRequestException e){
             new ErrorAlert("This item is already in the shopping cart");
         }
