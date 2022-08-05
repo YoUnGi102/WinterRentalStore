@@ -11,10 +11,12 @@ public class ViewHandler {
     public static final String ADD_ITEM_VIEW = "add-item-view.fxml";
     public static final String MANAGE_ITEM_VIEW = "manage-item-view.fxml";
     public static final String MENU_VIEW = "menu-view.fxml";
-
     public static final String FILTER_ITEMS_VIEW = "filter-items-view.fxml";
-
     public static final String RENT_VIEW = "rent-view.fxml";
+
+    public static final String FILTER_CUSTOMERS_VIEW = "filter-customers-view.fxml";
+
+    public static final String ADD_CUSTOMER_VIEW = "add-customer-view.fxml";
     private final ViewFactory viewFactory;
     private final Scene scene;
 

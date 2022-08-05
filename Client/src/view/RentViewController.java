@@ -1,14 +1,13 @@
 package view;
 
 import alerts.ErrorAlert;
-import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import model.Customer;
-import viewModel.FilterItemsViewModel;
 import viewModel.ItemTableView;
 import viewModel.RentViewModel;
 
@@ -35,6 +34,16 @@ public class RentViewController {
         this.handler = handler;
         this.viewModel = viewModel;
         this.root = root;
+
+        viewModel.bindStartDate(startDate.textProperty());
+        viewModel.bindEndDate(endDate.textProperty());
+        viewModel.bindTotal(total.textProperty());
+
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
         if(viewModel.getCustomer() != null){
             Customer customer = viewModel.getCustomer();
             customerName.setText(customer.getFirstName() + " " + customer.getLastName());
@@ -42,6 +51,9 @@ public class RentViewController {
             phone.setText(customer.getPhoneNumber());
             passport.setText(customer.getPassportNumber());
         }
+        viewModel.bindShoppingCart(items.itemsProperty());
+
+
     }
 
     @FXML
@@ -51,25 +63,28 @@ public class RentViewController {
 
     @FXML
     void back() {
-        handler.openView("");
+        handler.openView(ViewHandler.FILTER_ITEMS_VIEW);
     }
 
     @FXML
     void confirm() {
-
     }
 
     @FXML
     void removeItem() {
         ItemTableView itemView = items.getSelectionModel().getSelectedItem();
         if(itemView != null){
-            items.getItems().remove(itemView);
+            viewModel.removeFromBasket(itemView);
             items.refresh();
         }else{
             new ErrorAlert("No item was selected");
         }
     }
 
+    @FXML
+    void emptyCart() {
+        viewModel.clearShoppingCart();
+    }
     @FXML
     void searchCustomer() {
         // TODO ADD SEARCH CUSTOMER

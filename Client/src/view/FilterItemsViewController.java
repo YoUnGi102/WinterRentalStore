@@ -20,6 +20,7 @@ import viewModel.ItemTableView;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
@@ -39,8 +40,6 @@ public class FilterItemsViewController {
     private ChoiceBox<String> endTime;
     @FXML
     private ChoiceBox<String> type;
-
-
 
     @FXML
     private TextField sizeMin, sizeMax, priceMin, priceMax;
@@ -64,9 +63,8 @@ public class FilterItemsViewController {
     private FilterItemsViewModel viewModel;
     private Region root;
 
-    private IntegerProperty itemsAmount;
-
     public void init(ViewHandler handler, FilterItemsViewModel viewModel, Region root){
+
         this.handler = handler;
         this.viewModel = viewModel;
         this.root = root;
@@ -76,12 +74,20 @@ public class FilterItemsViewController {
         endTime.setItems(times);
         // TODO type.setItems();
 
-        itemsAmount = new SimpleIntegerProperty();
-        viewModel.bindItemsAmount(itemsAmount);
-        itemsAmount.addListener((observableValue, number, t1) -> {
-            System.out.println("Change");
-            itemsNum.setText(String.valueOf(itemsAmount.get()));
-        });
+        viewModel.bindItemsAmount(itemsNum.textProperty());
+        itemsNum.textProperty().addListener(((observableValue, s, t1) -> {
+            if(Integer.parseInt(t1) > 0){
+                startDate.setDisable(true);
+                endDate.setDisable(true);
+                startTime.setDisable(true);
+                endTime.setDisable(true);
+            }else{
+                startDate.setDisable(false);
+                endDate.setDisable(false);
+                startTime.setDisable(false);
+                endTime.setDisable(false);
+            }
+        }));
 
         try {
             type.setItems(FXCollections.observableArrayList(viewModel.getItemTypes()));
@@ -97,12 +103,19 @@ public class FilterItemsViewController {
         sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
+        LocalDate start = LocalDate.of(2022, 8, 1);
+        LocalDate end = LocalDate.of(2022, 8, 2);
+        startDate.setValue(start);
+        endDate.setValue(end);
+        startTime.setValue("08");
+        endTime.setValue("08");
+
     };
 
     @FXML
     void add() {
         try{
-            viewModel.addToBasket(itemsList.getSelectionModel().getSelectedItem().getItem());
+            viewModel.addToBasket(itemsList.getSelectionModel().getSelectedItem());
         }catch (DuplicateRequestException e){
             new ErrorAlert("This item is already in the shopping cart");
         }
@@ -112,6 +125,11 @@ public class FilterItemsViewController {
     void cancel() {
         viewModel.clear();
         // TODO BACK TO MANAGE RENT WINDOW
+    }
+
+    @FXML
+    void clear(){
+        viewModel.clear();
     }
 
     @FXML
@@ -140,8 +158,7 @@ public class FilterItemsViewController {
             double priceMax = (this.priceMax.getText().equals("")) ? 1000000 : Double.parseDouble(this.priceMax.getText());
             viewModel.getItems(start, end, type, sizeMin, sizeMax, priceMin, priceMax);
         }catch (NumberFormatException e) {
-            throw e;
-//            new ErrorAlert("Incorrect format of the search information");
+            new ErrorAlert("Incorrect format of the search information");
         }catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (NotBoundException e) {

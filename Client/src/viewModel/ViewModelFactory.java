@@ -9,8 +9,11 @@ public class ViewModelFactory {
     private ManageEmployeeViewModel manageEmployeeViewModel;
     private MenuViewModel menuViewModel;
     private AddItemViewModel addItemViewModel;
-
     private FilterItemsViewModel filterItemsViewModel;
+
+    private FilterCustomersViewModel filterCustomersViewModel;
+
+    private AddCustomerViewModel addCustomerViewModel;
     private RentViewModel rentViewModel;
     public ViewModelFactory(RemoteModel model) {
         this.model = model;
@@ -20,7 +23,11 @@ public class ViewModelFactory {
         this.addItemViewModel = new AddItemViewModel(model);
         this.menuViewModel = new MenuViewModel(model);
         this.rentViewModel = new RentViewModel(model);
-        this.filterItemsViewModel = new FilterItemsViewModel(model, rentViewModel);
+        this.filterItemsViewModel = new FilterItemsViewModel(model);
+        this.addCustomerViewModel = new AddCustomerViewModel(model);
+        this.filterCustomersViewModel = new FilterCustomersViewModel(model);
+        rentViewModel.setFilterItemsListener(filterItemsViewModel);
+        filterItemsViewModel.setRentViewModelListener(rentViewModel);
     }
     public MenuViewModel getMenuViewModel(){return menuViewModel;}
     public AddItemViewModel getAddItemViewModel() {return addItemViewModel;}
@@ -33,8 +40,14 @@ public class ViewModelFactory {
     public ManageEmployeeViewModel getManageEmployeeViewModel() {
         return manageEmployeeViewModel;
     }
-
     public FilterItemsViewModel getFilterItemsViewModel() {return filterItemsViewModel;}
-
     public RentViewModel getRentViewModel() {return rentViewModel;}
+
+    public FilterCustomersViewModel getFilterCustomersViewModel(){
+        return filterCustomersViewModel;
+    }
+
+    public AddCustomerViewModel getAddCustomerViewModel(){
+        return addCustomerViewModel;
+    }
 }
