@@ -51,26 +51,21 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
         // TODO REMOVE CLIENT
     }
     @Override
-    public Customer getCustomerByPassport(int passportNumber) throws RemoteException, NotBoundException {
-        return model.getCustomerByPassport(passportNumber);
-    }
-    @Override
-    public void addCustomer(Customer customer) throws RemoteException, NotBoundException {
+    public void addCustomer(Customer customer) throws RemoteException, NotBoundException, SQLException {
         model.addCustomer(customer);
     }
     @Override
-    public void removeCustomer(Customer customer) throws RemoteException, NotBoundException {
+    public void removeCustomer(Customer customer) throws RemoteException, NotBoundException, SQLException {
         model.removeCustomer(customer);
+    }
+    @Override
+    public ArrayList<Customer> getCustomers(String keyWord) throws RemoteException, NotBoundException, SQLException {
+        return model.getCustomers(keyWord);
     }
     @Override
     public ArrayList<Item> getItems(LocalDateTime start, LocalDateTime end, String type, int minSize, int maxSize, double minPrice, double maxPrice) throws RemoteException, NotBoundException, SQLException {
         return model.getItems(start, end, type, minSize, maxSize, minPrice, maxPrice);
     }
-    @Override
-    public Item getItemById(int itemId) throws RemoteException, NotBoundException {
-        return model.getItemById(itemId);
-    }
-
     @Override
     public void addItem(Item item, int numberOfPieces) throws RemoteException, NotBoundException, SQLException {
         model.addItem(item, numberOfPieces);
@@ -119,5 +114,9 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
     @Override
     public void removeEmployee(Employee employee) throws RemoteException, NotBoundException {
         model.removeEmployee(employee);
+    }
+    @Override
+    public void addRent(Rent rent) {
+        model.addRent(rent);
     }
 }

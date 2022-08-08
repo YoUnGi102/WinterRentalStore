@@ -13,24 +13,19 @@ import java.util.HashMap;
 
 public class ModelManager implements Model {
 
-    private CustomerList customerList;
-    private ItemList itemList;
-
-    private EmployeeList employeeList;
-
+    private CustomerDAO customerDao;
     private StaffDAO staffDAO;
     private TypeDAO typeDAO;
     private ItemDAO itemDAO;
     private Staff currentUser;
-    
+
+    private RentDAO rentDAO;
     public ModelManager() {
         staffDAO = new StaffImplementation();
         itemDAO = new ItemImplementation();
         typeDAO = new TypeImplementation();
-
-        customerList = new CustomerList();
-        itemList = new ItemList();
-        employeeList = new EmployeeList();
+        customerDao = new CustomerImplementation();
+        rentDAO = new RentImplementation();
     }
 
     @Override
@@ -50,25 +45,19 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Customer getCustomerByPassport(int passportNumber) throws RemoteException, NotBoundException {
-        return customerList.getCustomerByPassport(passportNumber);
+    public void addCustomer(Customer customer) throws RemoteException, NotBoundException, SQLException {
+        customerDao.insert(customer);
     }
 
     @Override
-    public void addCustomer(Customer customer) throws RemoteException, NotBoundException {
-        customerList.addCustomer(customer);
+    public void removeCustomer(Customer customer) throws RemoteException, NotBoundException, SQLException {
+        customerDao.delete(customer);
     }
 
     @Override
-    public void removeCustomer(Customer customer) throws RemoteException, NotBoundException {
-        customerList.removeCustomer(customer);
+    public ArrayList<Customer> getCustomers(String keyWord) throws RemoteException, NotBoundException, SQLException {
+        return customerDao.select(keyWord);
     }
-
-    @Override
-    public Item getItemById(int itemId) throws RemoteException, NotBoundException {
-        return itemList.getItemById(itemId);
-    }
-
     @Override
     public void addItem(Item item, int numberOfPieces) throws RemoteException, NotBoundException, SQLException {
         itemDAO.insert(item, numberOfPieces);
@@ -94,27 +83,31 @@ public class ModelManager implements Model {
     }
     @Override
     public ArrayList<Employee> getEmployees() throws RemoteException, NotBoundException {
-        return employeeList.getEmployees();
+        return null;
     }
 
     @Override
     public ArrayList<Employee> getEmployeesByType(String type) throws RemoteException, NotBoundException {
-        return employeeList.getEmployeesByType(type);
+        return null;
     }
 
     @Override
     public Employee getEmployeeByUsername(String username) throws RemoteException, NotBoundException {
-        return employeeList.getEmployeeByUsername(username);
+        return null;
     }
 
     @Override
     public void addEmployee(Employee employee) throws RemoteException, NotBoundException {
-        employeeList.addEmployee(employee);
+
     }
 
     @Override
     public void removeEmployee(Employee employee) throws RemoteException, NotBoundException {
-        employeeList.removeEmployee(employee);
+
     }
 
+    @Override
+    public void addRent(Rent rent) throws RemoteException, NotBoundException, SQLException {
+        rentDAO.insert(rent);
+    }
 }

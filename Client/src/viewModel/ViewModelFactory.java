@@ -28,6 +28,7 @@ public class ViewModelFactory {
         this.filterCustomersViewModel = new FilterCustomersViewModel(model);
         rentViewModel.setFilterItemsListener(filterItemsViewModel);
         filterItemsViewModel.setRentViewModelListener(rentViewModel);
+        filterCustomersViewModel.setRentViewModelListener(rentViewModel);
     }
     public MenuViewModel getMenuViewModel(){return menuViewModel;}
     public AddItemViewModel getAddItemViewModel() {return addItemViewModel;}

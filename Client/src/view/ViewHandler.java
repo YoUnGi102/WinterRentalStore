@@ -60,6 +60,12 @@ public class ViewHandler {
             case RENT_VIEW:
                 root = viewFactory.loadRentView();
                 break;
+            case ADD_CUSTOMER_VIEW:
+                root = viewFactory.loadAddCustomerView();
+                break;
+            case FILTER_CUSTOMERS_VIEW:
+                root = viewFactory.loadFilterCustomersView();
+                break;
             default:
                 throw new IllegalArgumentException("View with this ID does not exist");
         }

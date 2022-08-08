@@ -29,10 +29,6 @@ public class ManageItemViewModel {
         pricePerDayProperty = new SimpleDoubleProperty();
         rentedProperty = new SimpleBooleanProperty();
     }
-
-    public Item getItemById(int itemId) throws NotBoundException, RemoteException, SQLException {
-        return model.getItemById(itemId);
-    }
     public void removeItem(Item item) throws NotBoundException, RemoteException, SQLException {
         model.removeItem(item);
     }

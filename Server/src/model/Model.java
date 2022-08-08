@@ -20,15 +20,15 @@ public interface Model {
     void removeItem(Item item) throws RemoteException, NotBoundException, SQLException;
     ArrayList<String> getItemTypes() throws RemoteException, SQLException;
     HashMap<String, String> getTypeUnitPairs() throws RemoteException, SQLException;
-
     ArrayList<Item> getItems(LocalDateTime start, LocalDateTime end, String type, int minSize, int maxSize, double minPrice, double maxPrice) throws RemoteException, NotBoundException, SQLException;
 
     // MANAGE CUSTOMER
-    Customer getCustomerByPassport(int passportNumber) throws RemoteException, NotBoundException;
-    void addCustomer(Customer customer) throws RemoteException, NotBoundException;
-    void removeCustomer(Customer customer) throws RemoteException, NotBoundException;
-    Item getItemById(int itemId) throws RemoteException, NotBoundException;
+    void addCustomer(Customer customer) throws RemoteException, NotBoundException, SQLException;
+    void removeCustomer(Customer customer) throws RemoteException, NotBoundException, SQLException;
 
+    ArrayList<Customer> getCustomers(String keyWord) throws RemoteException, NotBoundException, SQLException;
+
+    // EMPLOYEES
     ArrayList<Employee> getEmployees() throws RemoteException, NotBoundException;
 
     ArrayList<Employee> getEmployeesByType(String type) throws RemoteException, NotBoundException;
@@ -38,4 +38,6 @@ public interface Model {
     void addEmployee(Employee employee) throws RemoteException, NotBoundException;
 
     void removeEmployee(Employee employee) throws RemoteException, NotBoundException;
+
+    void addRent(Rent rent) throws RemoteException, NotBoundException, SQLException;
 }

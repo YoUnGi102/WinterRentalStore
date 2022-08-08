@@ -1,7 +1,15 @@
 import databaseAdapters.*;
 import javafx.collections.ObservableList;
+import mediator.RemoteModel;
+import mediator.Server;
+import model.Customer;
 import model.Item;
+import model.Model;
+import model.ModelManager;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -13,11 +21,31 @@ import java.util.Locale;
 
 public class test {
 
-    public static void main(String[] args) throws SQLException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime time = LocalDateTime.parse("2022-08-01 08:00", formatter);
-        System.out.println(time);
+    public static void main(String[] args) {
+        RemoteModel remoteModel;
+        try {
+            remoteModel = new Server();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        } catch (NotBoundException e) {
+            throw new RuntimeException(e);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        Model model = new ModelManager();
 
+        CustomerDAO dao = new CustomerImplementation();
+        try {
+            for (Customer c : remoteModel.getCustomers("")) {
+                System.out.println(c.toString());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (NotBoundException e) {
+            throw new RuntimeException(e);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
 //
 //
 //        DatabaseConnection databaseConnection = DatabaseConnection.getInstance();

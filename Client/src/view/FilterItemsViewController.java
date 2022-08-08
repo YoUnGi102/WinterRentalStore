@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
 
+import static view.ViewHandler.MENU_VIEW;
 import static view.ViewHandler.RENT_VIEW;
 
 public class FilterItemsViewController {
@@ -124,7 +125,7 @@ public class FilterItemsViewController {
     @FXML
     void cancel() {
         viewModel.clear();
-        // TODO BACK TO MANAGE RENT WINDOW
+        handler.openView(MENU_VIEW);
     }
 
     @FXML

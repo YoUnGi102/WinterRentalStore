@@ -1,6 +1,11 @@
 package view;
 
 import alerts.ErrorAlert;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -8,8 +13,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import model.Customer;
+import model.Item;
+import viewModel.FilterItemsViewModel;
 import viewModel.ItemTableView;
 import viewModel.RentViewModel;
+
+import java.time.LocalDateTime;
 
 public class RentViewController {
 
@@ -30,10 +39,14 @@ public class RentViewController {
     private RentViewModel viewModel;
     private Region root;
 
+    private ObjectProperty<Customer> customer;
+
     public void init(ViewHandler handler, RentViewModel viewModel, Region root){
         this.handler = handler;
         this.viewModel = viewModel;
         this.root = root;
+
+        customer = new SimpleObjectProperty<>();
 
         viewModel.bindStartDate(startDate.textProperty());
         viewModel.bindEndDate(endDate.textProperty());
@@ -43,6 +56,21 @@ public class RentViewController {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        viewModel.bindCustomer(customer);
+        customer.addListener((observableValue, oldVal, newVal) -> {
+            if(newVal != null){
+                customerName.setText(newVal.getFirstName() + " " + newVal.getLastName());
+                email.setText(newVal.getEmail());
+                phone.setText(newVal.getPhoneNumber());
+                passport.setText(newVal.getPassportNumber());
+            }else{
+                customerName.setText("");
+                email.setText("");
+                phone.setText("");
+                passport.setText("");
+            }
+        });
 
         if(viewModel.getCustomer() != null){
             Customer customer = viewModel.getCustomer();
@@ -58,7 +86,7 @@ public class RentViewController {
 
     @FXML
     void addCustomer() {
-        // TODO ADD CUSTOMER
+        handler.openView(ViewHandler.ADD_CUSTOMER_VIEW);
     }
 
     @FXML
@@ -68,6 +96,7 @@ public class RentViewController {
 
     @FXML
     void confirm() {
+        viewModel.
     }
 
     @FXML
@@ -87,7 +116,7 @@ public class RentViewController {
     }
     @FXML
     void searchCustomer() {
-        // TODO ADD SEARCH CUSTOMER
+        handler.openView(ViewHandler.FILTER_CUSTOMERS_VIEW);
     }
     public Region getRoot() {
         return root;

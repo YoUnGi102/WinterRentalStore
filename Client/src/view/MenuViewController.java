@@ -8,14 +8,13 @@ import viewModel.MenuViewModel;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
-import static view.ViewHandler.FILTER_ITEMS_VIEW;
+import static view.ViewHandler.*;
 
 public class MenuViewController {
 
     private ViewHandler viewHandler;
     private MenuViewModel viewModel;
     private Region root;
-
     public void init(ViewHandler viewHandler, MenuViewModel viewModel, Region root){
         this.viewHandler = viewHandler;
         this.viewModel = viewModel;
@@ -24,8 +23,7 @@ public class MenuViewController {
 
     @FXML
     void customer() {
-        //TODO OPEN CUSTOMER VIEW
-        // viewHandler.openView("");
+        viewHandler.openView(FILTER_CUSTOMERS_VIEW);
     }
 
     @FXML
@@ -47,13 +45,10 @@ public class MenuViewController {
             throw new RuntimeException(e);
         }
     }
-
     @FXML
     void renting() {
         viewHandler.openView(FILTER_ITEMS_VIEW);
     }
-
-
     public Region getRoot() {
         return root;
     }

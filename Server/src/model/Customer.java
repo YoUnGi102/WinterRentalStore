@@ -5,11 +5,11 @@ import java.io.Serializable;
 public class Customer implements Serializable {
     private String firstName;
     private String lastName;
-    private int passportNumber;
+    private String passportNumber;
     private String phoneNumber;
     private String email;
 
-    public Customer(String firstName, String lastName, int passportNumber, String phoneNumber, String email) {
+    public Customer(String firstName, String lastName, String passportNumber, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.passportNumber = passportNumber;
@@ -33,11 +33,10 @@ public class Customer implements Serializable {
         this.lastName = lastName;
     }
 
-    public int getPassportNumber() {
-        return passportNumber;
+    public String getPassportNumber() {
+        return String.valueOf(passportNumber);
     }
-
-    public void setPassportNumber(int passportNumber) {
+    public void setPassportNumber(String passportNumber) {
         this.passportNumber = passportNumber;
     }
 
@@ -55,5 +54,16 @@ public class Customer implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", passportNumber='" + passportNumber + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

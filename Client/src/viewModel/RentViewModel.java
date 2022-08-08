@@ -4,17 +4,21 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import mediator.RemoteModel;
 import model.Customer;
 import model.Item;
+import model.Rent;
+import model.Staff;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 import static viewModel.FilterItemsViewModel.*;
@@ -24,9 +28,7 @@ public class RentViewModel implements PropertyChangeListener {
     private final RemoteModel model;
     private ObjectProperty<ObservableList<ItemTableView>> shoppingCart;
     private ObjectProperty<Customer> customer;
-
     private PropertyChangeListener filterItemsListener;
-
     private StringProperty startDate;
     private StringProperty endDate;
     private StringProperty total;
@@ -52,8 +54,14 @@ public class RentViewModel implements PropertyChangeListener {
         endDate.bind(this.endDate);
     }
 
-    public void bindTotal(StringProperty total){
+    public void bindTotal(StringProperty total) {
         total.bind(this.total);
+    }
+    public void bindShoppingCart(ObjectProperty<ObservableList<ItemTableView>> shoppingCart){
+        shoppingCart.bind(this.shoppingCart);
+    }
+    public void bindCustomer(ObjectProperty<Customer> customer){
+        this.customer.bindBidirectional(customer);
     }
 
     public void removeFromBasket(ItemTableView itemTableView){
@@ -62,13 +70,6 @@ public class RentViewModel implements PropertyChangeListener {
         filterItemsListener.propertyChange(new PropertyChangeEvent(this, UPDATE_SHOPPING_CART, null, shoppingCart.get()));
     }
 
-    public void bindShoppingCart(ObjectProperty<ObservableList<ItemTableView>> shoppingCart){
-        shoppingCart.bind(this.shoppingCart);
-    }
-
-    public void bindCustomer(ObjectProperty<Customer> customer){
-        this.customer.bindBidirectional(customer);
-    }
     public Customer getCustomer() {
         return customer.get();
     }
@@ -96,6 +97,20 @@ public class RentViewModel implements PropertyChangeListener {
         System.out.println(sumForDay*days);
     }
 
+    public void createRent(){
+        LocalDateTime start = LocalDateTime.parse(startDate.get(), FilterItemsViewModel.FORMATTER);
+        LocalDateTime end = LocalDateTime.parse(endDate.get(), FilterItemsViewModel.FORMATTER);
+        Customer customer = this.customer.getValue();
+        ArrayList<Item> items = new ArrayList<>();
+        for (ItemTableView i : shoppingCart.get()) {
+            items.add(i.getItem());
+        }
+        // TODO CHANGE STAFF
+        Staff staff = new Staff("admin", "way.james@gmail.com", "James", "Way", "manager");
+        Rent rent = new Rent(start,end,customer,items, staff, Double.parseDouble(total.get()));
+        model.addRent(rent);
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()){
@@ -106,6 +121,7 @@ public class RentViewModel implements PropertyChangeListener {
                 break;
             case UPDATE_CUSTOMER:
                 Customer customer = (Customer) evt.getNewValue();
+                this.customer.setValue(customer);
                 break;
             case UPDATE_START_DATE:
                 String startDate = (String) evt.getNewValue();

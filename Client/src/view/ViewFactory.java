@@ -21,11 +21,10 @@ public class ViewFactory {
     private ManageItemViewController manageItemViewController;
     private AddItemViewController addItemViewController;
     private MenuViewController menuViewController;
-
     private RentViewController rentViewController;
-
     private FilterItemsViewController filterItemsViewController;
-
+    private AddCustomerViewController addCustomerViewController;
+    private FilterCustomersViewController filterCustomersViewController;
     public ViewFactory(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
         this.viewHandler = viewHandler;
         this.viewModelFactory = viewModelFactory;
@@ -35,6 +34,9 @@ public class ViewFactory {
         this.menuViewController = null;
         this.filterItemsViewController = null;
         this.rentViewController = null;
+        this.addCustomerViewController = null;
+        this.filterCustomersViewController = null;
+        loadAddCustomerView();
     }
 
     public Region loadLoginView() {
@@ -139,7 +141,38 @@ public class ViewFactory {
                 throw new IOError(e);
             }
         }
+        addCustomerViewController.getViewModel().setRentViewListener(viewModelFactory.getRentViewModel());
         return rentViewController.getRoot();
+    }
+    public Region loadAddCustomerView(){
+        if(addCustomerViewController == null){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(ADD_CUSTOMER_VIEW));
+            try {
+                Region root = loader.load();
+                addCustomerViewController = loader.getController();
+                addCustomerViewController.init(viewHandler, viewModelFactory.getAddCustomerViewModel(), root);
+            } catch (IOException e) {
+                throw new IOError(e);
+            }
+        }
+        return addCustomerViewController.getRoot();
+    }
+
+    public Region loadFilterCustomersView(){
+        if(filterCustomersViewController == null){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(FILTER_CUSTOMERS_VIEW));
+            try {
+                Region root = loader.load();
+                filterCustomersViewController = loader.getController();
+                filterCustomersViewController.init(viewHandler, viewModelFactory.getFilterCustomersViewModel(), root);
+            } catch (IOException e) {
+                throw new IOError(e);
+            }
+        }
+        addCustomerViewController.getViewModel().setRentViewListener(null);
+        return filterCustomersViewController.getRoot();
     }
 
 
