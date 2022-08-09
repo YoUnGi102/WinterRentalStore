@@ -5,6 +5,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
@@ -60,9 +62,8 @@ public class RentViewModel implements PropertyChangeListener {
         shoppingCart.bind(this.shoppingCart);
     }
     public void bindCustomer(ObjectProperty<Customer> customer){
-        this.customer.bindBidirectional(customer);
+        customer.bindBidirectional(this.customer);
     }
-
     public void removeFromBasket(ItemTableView itemTableView){
         shoppingCart.get().remove(itemTableView);
         calculateTotal();
@@ -127,14 +128,12 @@ public class RentViewModel implements PropertyChangeListener {
                 break;
             case UPDATE_START_DATE:
                 String startDate = (String) evt.getNewValue();
-                System.out.println("START DATE UPDATE");
                 calculateTotal();
                 this.startDate.setValue(startDate);
                 break;
             case UPDATE_END_DATE:
                 String endDate = (String) evt.getNewValue();
                 this.endDate.setValue(endDate);
-                System.out.println("END DATE UPDATE");
                 calculateTotal();
                 break;
             case UPDATE_TOTAL:

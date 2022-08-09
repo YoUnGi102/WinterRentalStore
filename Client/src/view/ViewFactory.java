@@ -2,8 +2,6 @@ package view;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Region;
-import viewModel.ManageItemViewModel;
-import viewModel.RentViewModel;
 import viewModel.ViewModelFactory;
 
 import java.io.IOError;
@@ -16,7 +14,6 @@ public class ViewFactory {
 
     private final ViewHandler viewHandler;
     private final ViewModelFactory viewModelFactory;
-    private ManageEmployeeViewController manageEmployeeViewController;
     private LoginViewController loginViewController;
     private ManageItemViewController manageItemViewController;
     private AddItemViewController addItemViewController;
@@ -25,6 +22,7 @@ public class ViewFactory {
     private FilterItemsViewController filterItemsViewController;
     private AddCustomerViewController addCustomerViewController;
     private FilterCustomersViewController filterCustomersViewController;
+    private AddEmployeeViewController addEmployeeViewController;
     public ViewFactory(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
         this.viewHandler = viewHandler;
         this.viewModelFactory = viewModelFactory;
@@ -38,6 +36,7 @@ public class ViewFactory {
         this.filterCustomersViewController = null;
         loadAddCustomerView();
         loadFilterCustomersView();
+        loadRentView();
     }
     public Region loadLoginView() {
         if (loginViewController == null) {
@@ -53,19 +52,19 @@ public class ViewFactory {
         }
         return loginViewController.getRoot();
     }
-    public Region loadEmployeeView() {
-        if (manageEmployeeViewController == null) {
+    public Region loadAddEmployeeView() {
+        if (addEmployeeViewController == null) {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(EMPLOYEE_VIEW));
+            loader.setLocation(getClass().getResource(ADD_EMPLOYEE_VIEW));
             try {
                 Region root = loader.load();
-                manageEmployeeViewController = loader.getController();
-                manageEmployeeViewController.init(viewHandler, viewModelFactory.getManageEmployeeViewModel(), root);
+                addEmployeeViewController = loader.getController();
+                addEmployeeViewController.init(viewHandler, viewModelFactory.getAddEmployeeViewModel(), root);
             } catch (IOException e) {
                 throw new IOError(e);
             }
         }
-        return manageEmployeeViewController.getRoot();
+        return addEmployeeViewController.getRoot();
     }
     public Region loadManageItemView() {
         if (manageItemViewController == null) {
@@ -107,7 +106,8 @@ public class ViewFactory {
                 throw new IOError(e);
             }
         }
-        filterCustomersViewController.getViewModel().setListener(viewModelFactory.getMenuViewModel());
+        filterCustomersViewController.getViewModel().setPrevView(viewModelFactory.getMenuViewModel());
+        menuViewController.setAccess();
         return menuViewController.getRoot();
     }
     public Region loadFilterItemsView(){
@@ -136,7 +136,7 @@ public class ViewFactory {
                 throw new IOError(e);
             }
         }
-        filterCustomersViewController.getViewModel().setListener(viewModelFactory.getRentViewModel());
+        filterCustomersViewController.getViewModel().setPrevView(null);
         addCustomerViewController.getViewModel().setRentViewListener(viewModelFactory.getRentViewModel());
         return rentViewController.getRoot();
     }
@@ -169,4 +169,6 @@ public class ViewFactory {
         addCustomerViewController.getViewModel().setRentViewListener(null);
         return filterCustomersViewController.getRoot();
     }
+
+
 }

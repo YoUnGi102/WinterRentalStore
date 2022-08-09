@@ -28,8 +28,6 @@ public class LoginViewController {
         this.viewHandler = viewHandler;
         this.viewModel = viewModel;
         this.root = root;
-        username.setText("admin");
-        password.setText("password");
     }
     public void logIn() {
         try {

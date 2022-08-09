@@ -20,18 +20,21 @@ public class FilterCustomersViewModel {
     private Model model;
 
     private ObjectProperty<ObservableList<CustomerTableView>> searchedCustomers;
-
     private PropertyChangeListener listener;
+    private MenuViewModel prevView;
     public FilterCustomersViewModel(Model model){
         searchedCustomers = new SimpleObjectProperty<>(FXCollections.observableArrayList());
         this.model = model;
     }
+
+    public void setPrevView(MenuViewModel prevView){
+        this.prevView = prevView;
+    }
     public void setListener(PropertyChangeListener listener){
         this.listener = listener;
     }
-
     public boolean isRent(){
-        return listener instanceof RentViewModel;
+        return prevView == null;
     }
     public void bindSearchedCustomers(ObjectProperty<ObservableList<CustomerTableView>> searchedCustomers){
         searchedCustomers.bind(this.searchedCustomers);
@@ -48,8 +51,7 @@ public class FilterCustomersViewModel {
     }
 
     public void rentTo(Customer customer){
-        if(isRent())
-            listener.propertyChange(new PropertyChangeEvent(this, UPDATE_CUSTOMER, null, customer));
+         listener.propertyChange(new PropertyChangeEvent(this, UPDATE_CUSTOMER, null, customer));
     }
 
 }

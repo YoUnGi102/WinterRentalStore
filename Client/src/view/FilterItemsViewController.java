@@ -73,7 +73,6 @@ public class FilterItemsViewController {
                         "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18");
         startTime.setItems(times);
         endTime.setItems(times);
-        // TODO type.setItems();
 
         viewModel.bindItemsAmount(itemsNum.textProperty());
         itemsNum.textProperty().addListener(((observableValue, s, t1) -> {
@@ -103,13 +102,6 @@ public class FilterItemsViewController {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-        LocalDate start = LocalDate.of(2022, 8, 1);
-        LocalDate end = LocalDate.of(2022, 8, 2);
-        startDate.setValue(start);
-        endDate.setValue(end);
-        startTime.setValue("08");
-        endTime.setValue("08");
 
     };
 

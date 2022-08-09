@@ -21,7 +21,7 @@ public interface Model {
     ArrayList<String> getItemTypes() throws RemoteException, SQLException;
     HashMap<String, String> getTypeUnitPairs() throws RemoteException, SQLException;
     ArrayList<Staff> getAllStaff() throws RemoteException, NotBoundException, SQLException;
-    void addStaff(Staff employee) throws RemoteException, NotBoundException, SQLException;
+    void addStaff(Staff employee, String password) throws RemoteException, NotBoundException, SQLException;
     void removeStaff(Staff employee) throws RemoteException, NotBoundException, SQLException;
     void addRent(Rent rent) throws SQLException, NotBoundException, RemoteException;
     Staff getStaff();

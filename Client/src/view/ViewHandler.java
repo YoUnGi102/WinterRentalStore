@@ -6,17 +6,16 @@ import javafx.stage.Stage;
 import viewModel.ViewModelFactory;
 
 public class ViewHandler {
-    public static final String EMPLOYEE_VIEW = "manage-employee-view.fxml";
     public static final String LOGIN_VIEW = "login-view.fxml";
     public static final String ADD_ITEM_VIEW = "add-item-view.fxml";
     public static final String MANAGE_ITEM_VIEW = "manage-item-view.fxml";
     public static final String MENU_VIEW = "menu-view.fxml";
     public static final String FILTER_ITEMS_VIEW = "filter-items-view.fxml";
     public static final String RENT_VIEW = "rent-view.fxml";
-
     public static final String FILTER_CUSTOMERS_VIEW = "filter-customers-view.fxml";
-
     public static final String ADD_CUSTOMER_VIEW = "add-customer-view.fxml";
+    public static final String ADD_EMPLOYEE_VIEW = "add-employee-view.fxml";
+
     private final ViewFactory viewFactory;
     private final Scene scene;
 
@@ -42,8 +41,8 @@ public class ViewHandler {
             case LOGIN_VIEW:
                 root = viewFactory.loadLoginView();
                 break;
-            case EMPLOYEE_VIEW:
-                root = viewFactory.loadEmployeeView();
+            case ADD_EMPLOYEE_VIEW:
+                root = viewFactory.loadAddEmployeeView();
                 break;
             case MANAGE_ITEM_VIEW:
                 root = viewFactory.loadManageItemView();

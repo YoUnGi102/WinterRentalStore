@@ -3,6 +3,7 @@ package view;
 import alerts.DatabaseAlert;
 import alerts.ErrorAlert;
 import alerts.ServerAlert;
+import alerts.SuccessAlert;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -59,12 +60,26 @@ public class AddEmployeeViewController {
             return;
         }
         try {
-            viewModel.addStaff(new Staff(username, email, fName, lName, "employee"));
+            viewModel.addStaff(new Staff(username, email, fName, lName, "employee"), password);
+            new SuccessAlert("New employee successfully added");
+            handler.openView(ViewHandler.MENU_VIEW);
+        } catch (org.postgresql.util.PSQLException e){
+            System.out.println(e.getSQLState() + " " + e.getErrorCode());
+            if (Integer.parseInt(e.getSQLState()) == 23505) {
+                new ErrorAlert("Employee with this username or email is already in the system");
+            } else {
+                new DatabaseAlert();
+            }
         } catch (SQLException e) {
             new DatabaseAlert();
         } catch (NotBoundException | RemoteException e) {
             new ServerAlert();
         }
+//        } catch (SQLException e) {
+//            new DatabaseAlert();
+//        } catch (NotBoundException | RemoteException e) {
+//            new ServerAlert();
+//        }
     }
 
     @FXML

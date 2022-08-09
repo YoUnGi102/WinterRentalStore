@@ -66,15 +66,15 @@ public class ModelManager implements Model{
     }
     @Override
     public ArrayList<Staff> getAllStaff() throws RemoteException, NotBoundException, SQLException {
-        return server.getEmployees();
+        return server.getStaff();
     }
     @Override
-    public void addStaff(Staff employee) throws RemoteException, NotBoundException, SQLException {
-        server.addEmployee(employee);
+    public void addStaff(Staff employee, String password) throws RemoteException, NotBoundException, SQLException {
+        server.addStaff(employee, password);
     }
     @Override
     public void removeStaff(Staff employee) throws RemoteException, NotBoundException, SQLException {
-        server.removeEmployee(employee);
+        server.removeStaff(employee);
     }
     @Override
     public void addRent(Rent rent) throws SQLException, NotBoundException, RemoteException {

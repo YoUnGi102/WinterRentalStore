@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
 import model.Customer;
 import viewModel.AddCustomerViewModel;
 
+import javax.xml.crypto.Data;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -89,24 +90,30 @@ public class AddCustomerViewController {
         try {
             viewModel.addCustomer(customer);
             new SuccessAlert("New Customer Successfully added");
-            if(viewModel.isRent()){
+            if (viewModel.isRent()) {
                 clear();
                 handler.openView(ViewHandler.RENT_VIEW);
-            }else{
+            } else {
                 clear();
                 handler.openView(ViewHandler.FILTER_CUSTOMERS_VIEW);
             }
         } catch (SQLException e) {
-            if (Integer.parseInt(e.getSQLState()) == 23505) {
-                new ErrorAlert("User is already in the database");
-            } else {
-                new DatabaseAlert();
-            }
+            throw new RuntimeException(e);
         } catch (RemoteException e) {
-            throw new Error(e);
-
-            //new ServerAlert();
+            throw new RuntimeException(e);
         }
+//        } catch (org.postgresql.util.PSQLException e) {
+//            System.out.println(e.getSQLState() + " " + e.getErrorCode());
+//            if (Integer.parseInt(e.getSQLState()) == 23505) {
+//                new ErrorAlert("Customer with this passport, email or phone number is already in the system");
+//            } else {
+//                new DatabaseAlert();
+//            }
+//        } catch (SQLException e) {
+//            new DatabaseAlert();
+//        } catch (RemoteException e) {
+//            new ServerAlert();
+//        }
     }
 
 

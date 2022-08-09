@@ -27,15 +27,11 @@ public interface Model {
     ArrayList<Customer> getCustomers(String keyWord) throws RemoteException, NotBoundException, SQLException;
 
     // EMPLOYEES
-    ArrayList<Employee> getEmployees() throws RemoteException, NotBoundException;
+    ArrayList<Staff> getStaff() throws RemoteException, NotBoundException;
 
-    ArrayList<Employee> getEmployeesByType(String type) throws RemoteException, NotBoundException;
+    void addStaff(Staff employee, String password) throws RemoteException, NotBoundException, SQLException;
 
-    Employee getEmployeeByUsername(String username) throws RemoteException, NotBoundException;
-
-    void addEmployee(Employee employee) throws RemoteException, NotBoundException;
-
-    void removeEmployee(Employee employee) throws RemoteException, NotBoundException;
+    void removeStaff(Staff employee) throws RemoteException, NotBoundException;
 
     void addRent(Rent rent) throws RemoteException, NotBoundException, SQLException;
 }

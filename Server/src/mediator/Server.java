@@ -1,6 +1,5 @@
 package mediator;
 
-import javafx.collections.ObservableList;
 import model.*;
 
 import java.net.MalformedURLException;
@@ -37,7 +36,6 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
     }
     @Override
     public Staff logIn(String username, String password) throws RemoteException, NotBoundException, SQLException, IllegalStateException {
-        // TODO ADD Client Connection
         Staff staff = model.logIn(username, password);
         if (staff != null) {
             System.out.println("User " + username + " successfully logged in");
@@ -48,9 +46,7 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
         }
     }
     @Override
-    public void logOut() throws RemoteException {
-        // TODO REMOVE CLIENT
-    }
+    public void logOut() throws RemoteException {}
     @Override
     public void addCustomer(Customer customer) throws RemoteException, NotBoundException, SQLException {
         model.addCustomer(customer);
@@ -93,28 +89,16 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
     }
 
     @Override
-    public ArrayList<Employee> getEmployees() throws RemoteException, NotBoundException {
-        return model.getEmployees();
+    public ArrayList<Staff> getStaff() throws RemoteException, NotBoundException {
+        return model.getStaff();
     }
-
     @Override
-    public ArrayList<Employee> getEmployeesByType(String type) throws RemoteException, NotBoundException {
-        return model.getEmployeesByType(type);
+    public void addStaff(Staff employee, String password) throws RemoteException, NotBoundException, SQLException {
+        model.addStaff(employee, password);
     }
-
     @Override
-    public Employee getEmployeeByUsername(String username) throws RemoteException, NotBoundException {
-        return model.getEmployeeByUsername(username);
-    }
-
-    @Override
-    public void addEmployee(Employee employee) throws RemoteException, NotBoundException {
-        model.addEmployee(employee);
-    }
-
-    @Override
-    public void removeEmployee(Employee employee) throws RemoteException, NotBoundException {
-        model.removeEmployee(employee);
+    public void removeStaff(Staff employee) throws RemoteException, NotBoundException {
+        model.removeStaff(employee);
     }
     @Override
     public void addRent(Rent rent) throws SQLException, NotBoundException, RemoteException {

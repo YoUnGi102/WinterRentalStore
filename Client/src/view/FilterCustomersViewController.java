@@ -1,5 +1,6 @@
 package view;
 
+import alerts.ErrorAlert;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -70,12 +71,13 @@ public class FilterCustomersViewController {
 
     @FXML
     void rent() {
-        if(customerList.getSelectionModel().getSelectedItem() == null)
+        if(customerList.getSelectionModel().getSelectedItem() == null){
+            new ErrorAlert("No customer selected");
             return;
+        }
 
         Customer customer = customerList.getSelectionModel().getSelectedItem().getCustomer();
         viewModel.rentTo(customer);
-        System.out.println("HELLO");
         if(viewModel.isRent()){
             handler.openView(ViewHandler.RENT_VIEW);
         }else{

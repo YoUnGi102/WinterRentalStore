@@ -1,6 +1,7 @@
 package viewModel;
 
 import model.Model;
+import model.Staff;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -17,6 +18,10 @@ public class MenuViewModel implements PropertyChangeListener {
 
     public void logOut() throws SQLException, RemoteException {
         model.logOut();
+    }
+
+    public Staff getStaff(){
+        return model.getStaff();
     }
 
     @Override

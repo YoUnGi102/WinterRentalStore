@@ -4,6 +4,8 @@ import javafx.collections.ObservableList;
 import model.Staff;
 
 import javax.xml.crypto.Data;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,16 +14,13 @@ import java.sql.SQLException;
 import static databaseAdapters.DatabaseConnection.SCHEMA;
 
 public class StaffImplementation implements StaffDAO {
-
-
     private static final String TABLE_NAME = "staff";
-
     private static final String USERNAME = "username";
     private static final String FIRST_NAME = "firstName";
     private static final String LAST_NAME = "lastName";
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
-    private static final String STAFF_TYPE = "staffType";
+    private static final String STAFF_TYPE = "stafftype";
     private DatabaseConnection databaseConnection;
 
     public StaffImplementation(){
@@ -30,42 +29,18 @@ public class StaffImplementation implements StaffDAO {
 
     @Override
     public void insert(Staff staff, String password) throws SQLException {
-//        try(Connection connection = databaseConnection.getConnection()) {
-//            PreparedStatement statement = connection.prepareStatement("INSERT INTO " + SCHEMA + "." + TABLE_NAME +
-//                    "("+ROOM_NUMBER+", "+DATE_FROM+", "+DATE_TO+ ", " + USERNAME + ") VALUES (?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-//            statement.setInt(1, booking.getRoom().getRoomNumber());
-//            statement.setDate(2, Date.valueOf(DATE_FORMATTER.format(booking.getDateFrom())));
-//            statement.setDate(3, Date.valueOf(DATE_FORMATTER.format(booking.getDateTo())));
-//            statement.setString(4, booking.getCreatedBy().getUsername());
-//            statement.executeUpdate();
-//
-//            ResultSet keys = statement.getGeneratedKeys();
-//            if (keys.next()) {
-//                booking.setBookingId(keys.getInt(1));
-//            } else {
-//                throw new SQLException("No keys generated");
-//            }
-//
-//            StringBuilder sql = new StringBuilder("INSERT INTO " + SCHEMA+"."+GUEST_BOOKING_TABLE +
-//                    "("+BOOKING_ID+", "+GUEST_ID+") VALUES ");
-//            for (int i = 0; i < booking.getGuests().size(); i++) {
-//                if(i != booking.getGuests().size()-1)
-//                    sql.append("(?,?),");
-//                else
-//                    sql.append("(?,?);");
-//            }
-//
-//            statement = connection.prepareStatement(sql.toString(), PreparedStatement.RETURN_GENERATED_KEYS);
-//
-//            int counter = 0;
-//            for (Guest guest : booking.getGuests()) {
-//                statement.setInt(counter*2+1, booking.getBookingId());
-//                statement.setString(counter*2+2, guest.getPassportNumber());
-//                counter++;
-//            }
-//            statement.executeUpdate();
-//
-//        }
+
+        try(Connection connection = databaseConnection.getConnection()) {
+            String sql = "INSERT INTO " + SCHEMA+"."+TABLE_NAME + " ("+USERNAME+", "+EMAIL+", "+PASSWORD+", "+FIRST_NAME+", "+LAST_NAME+", "+STAFF_TYPE+") VALUES (?,?,?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, staff.getUsername());
+            statement.setString(2, staff.getEmail());
+            statement.setString(3, password);
+            statement.setString(4, staff.getFirstName());
+            statement.setString(5, staff.getLastName());
+            statement.setString(6, staff.getUserType());
+            statement.executeUpdate();
+        }
     }
 
     @Override
@@ -86,6 +61,13 @@ public class StaffImplementation implements StaffDAO {
     @Override
     public Staff logIn(String username, String password) throws SQLException {
 
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
         Connection connection = databaseConnection.getConnection();
 
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM "  + SCHEMA + "." + TABLE_NAME + " WHERE " + USERNAME + " = ? AND " + PASSWORD + " = ?");
@@ -99,6 +81,7 @@ public class StaffImplementation implements StaffDAO {
             String resFName = resultSet.getString(FIRST_NAME);
             String resLName = resultSet.getString(LAST_NAME);
             String resStaffType = resultSet.getString(STAFF_TYPE);
+            System.out.println(resStaffType);
             connection.close();
             return new Staff(resUsername, resEmail, resFName, resLName, resStaffType);
         } else {

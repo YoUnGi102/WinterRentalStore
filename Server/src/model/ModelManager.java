@@ -82,27 +82,16 @@ public class ModelManager implements Model {
         return itemDAO.select(start, end, type, minSize, maxSize, minPrice, maxPrice);
     }
     @Override
-    public ArrayList<Employee> getEmployees() throws RemoteException, NotBoundException {
+    public ArrayList<Staff> getStaff() throws RemoteException, NotBoundException {
         return null;
     }
-
     @Override
-    public ArrayList<Employee> getEmployeesByType(String type) throws RemoteException, NotBoundException {
-        return null;
+    public void addStaff(Staff employee, String password) throws RemoteException, NotBoundException, SQLException {
+        staffDAO.insert(employee, password);
     }
 
     @Override
-    public Employee getEmployeeByUsername(String username) throws RemoteException, NotBoundException {
-        return null;
-    }
-
-    @Override
-    public void addEmployee(Employee employee) throws RemoteException, NotBoundException {
-
-    }
-
-    @Override
-    public void removeEmployee(Employee employee) throws RemoteException, NotBoundException {
+    public void removeStaff(Staff employee) throws RemoteException, NotBoundException {
 
     }
 

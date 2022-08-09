@@ -1,6 +1,9 @@
 package mediator;
 
-import model.*;
+import model.Customer;
+import model.Item;
+import model.Rent;
+import model.Staff;
 
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
@@ -22,10 +25,8 @@ public interface RemoteModel extends Remote {
     void removeItem(Item item) throws RemoteException, NotBoundException, SQLException;
     ArrayList<String> getItemTypes() throws RemoteException, SQLException;
     HashMap<String, String> getTypeUnitPairs() throws RemoteException, SQLException;
-    ArrayList<Staff> getEmployees() throws RemoteException, NotBoundException, SQLException;
-    ArrayList<Staff> getEmployeesByType(String type) throws RemoteException, NotBoundException, SQLException;
-    Staff getEmployeeByUsername(String username) throws RemoteException, NotBoundException, SQLException;
-    void addEmployee(Staff employee) throws RemoteException, NotBoundException, SQLException;
-    void removeEmployee(Staff employee) throws RemoteException, NotBoundException, SQLException;
+    ArrayList<Staff> getStaff() throws RemoteException, NotBoundException, SQLException;
+    void addStaff(Staff employee, String password) throws RemoteException, NotBoundException, SQLException;
+    void removeStaff(Staff employee) throws RemoteException, NotBoundException, SQLException;
     void addRent(Rent rent) throws SQLException, NotBoundException, RemoteException;
 }

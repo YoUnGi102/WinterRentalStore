@@ -15,8 +15,8 @@ public class AddEmployeeViewModel {
         this.model = model;
     }
 
-    public void addStaff(Staff staff) throws SQLException, NotBoundException, RemoteException {
-        model.addStaff(staff);
+    public void addStaff(Staff staff, String password) throws SQLException, NotBoundException, RemoteException {
+        model.addStaff(staff, password);
     }
 
 }

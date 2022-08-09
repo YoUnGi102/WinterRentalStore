@@ -22,8 +22,6 @@ public class MyApplication extends javafx.application.Application {
         Model manager = new ModelManager(server);
         System.out.println("Server found");
         ViewModelFactory viewModelFactory = new ViewModelFactory(manager);
-        Employee testEmployee = new Employee("jim", "Jim", "Slim", "jim@john.com", "google", "Employee");
-        viewModelFactory.getManageEmployeeViewModel().setEmployee(testEmployee);
         ViewHandler viewHandler = new ViewHandler(viewModelFactory);
         viewHandler.start(stage);
     }

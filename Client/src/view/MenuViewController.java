@@ -12,6 +12,8 @@ import static view.ViewHandler.*;
 
 public class MenuViewController {
 
+    @FXML
+    private Button employee, items;
     private ViewHandler viewHandler;
     private MenuViewModel viewModel;
     private Region root;
@@ -19,8 +21,18 @@ public class MenuViewController {
         this.viewHandler = viewHandler;
         this.viewModel = viewModel;
         this.root = root;
+        setAccess();
     }
 
+    public void setAccess(){
+        if(viewModel.getStaff() != null && viewModel.getStaff().getUserType().equals("manager")){
+            employee.setVisible(true);
+            items.setVisible(true);
+        }else{
+            employee.setVisible(false);
+            items.setVisible(false);
+        }
+    }
     @FXML
     void customer() {
         viewHandler.openView(FILTER_CUSTOMERS_VIEW);
@@ -28,7 +40,7 @@ public class MenuViewController {
 
     @FXML
     void employee() {
-        viewHandler.openView(ViewHandler.EMPLOYEE_VIEW);
+        viewHandler.openView(ADD_EMPLOYEE_VIEW);
     }
 
     @FXML

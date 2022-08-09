@@ -33,7 +33,6 @@ public class ManageItemTest {
     void addOneItem() throws SQLException, NotBoundException, RemoteException {
         Item item = new Item("Test Item 1", "skis", 120, "cm", 10);
         model.addItem(item, 1);
-        // TODO GET ITEM BY NAME TO CHECK
     }
 
     @Test

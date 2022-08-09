@@ -31,12 +31,12 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#items" prefHeight="48.0" prefWidth="520.0" text="Manage Items">
+            <Button fx:id="items" mnemonicParsing="false" onAction="#items" prefHeight="48.0" prefWidth="520.0" text="Manage Items">
                <VBox.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#employee" prefHeight="48.0" prefWidth="520.0" text="Manage Employee">
+            <Button fx:id="employee" mnemonicParsing="false" onAction="#employee" prefHeight="48.0" prefWidth="520.0" text="Manage Employee">
                <VBox.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </VBox.margin>
