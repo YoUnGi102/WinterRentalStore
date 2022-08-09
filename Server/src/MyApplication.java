@@ -15,7 +15,7 @@ public class MyApplication extends Application {
         } catch (NotBoundException e) {
             throw new RuntimeException(e);
         }
-        FXMLLoader fxmlLoader = new FXMLLoader(MyApplication.class.getResource("view/hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MyApplication.class.getResource("view/server-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setResizable(false);
         stage.setTitle("Hello!");

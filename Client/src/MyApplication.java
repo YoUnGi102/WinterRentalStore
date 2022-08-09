@@ -1,6 +1,7 @@
 import javafx.stage.Stage;
 import mediator.RemoteModel;
-import model.Employee;
+import model.Model;
+import model.ModelManager;
 import view.ViewHandler;
 import viewModel.ViewModelFactory;
 
@@ -18,8 +19,9 @@ public class MyApplication extends javafx.application.Application {
         } catch (NotBoundException e) {
             throw new RuntimeException(e);
         }
+        Model manager = new ModelManager(server);
         System.out.println("Server found");
-        ViewModelFactory viewModelFactory = new ViewModelFactory(server);
+        ViewModelFactory viewModelFactory = new ViewModelFactory(manager);
         Employee testEmployee = new Employee("jim", "Jim", "Slim", "jim@john.com", "google", "Employee");
         viewModelFactory.getManageEmployeeViewModel().setEmployee(testEmployee);
         ViewHandler viewHandler = new ViewHandler(viewModelFactory);

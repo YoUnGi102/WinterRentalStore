@@ -31,22 +31,18 @@ public class LoginViewController {
         username.setText("admin");
         password.setText("password");
     }
-
     public void logIn() {
-
         try {
-            if(viewModel.logIn(username.getText(), password.getText())){
+            if(viewModel.logIn(username.getText(), password.getText()))
                 viewHandler.openView(ViewHandler.MENU_VIEW);
-            }else{
+            else
                 new ErrorAlert("Username or password is incorrect");
-            }
+
         }catch (NotBoundException | RemoteException e){
             new ServerAlert();
         }catch (SQLException e){
-            new DatabaseAlert();
-        }
+            new DatabaseAlert();}
     }
-
     public Region getRoot() {
         return root;
     }

@@ -1,9 +1,10 @@
 package viewModel;
 
-import javafx.collections.ObservableList;
-import mediator.RemoteModel;
+import javafx.beans.property.Property;
 import model.Item;
+import model.Model;
 
+import java.beans.PropertyChangeListener;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -12,16 +13,13 @@ import java.util.HashMap;
 
 public class AddItemViewModel {
 
-    RemoteModel model;
-
-    public AddItemViewModel(RemoteModel model){
+    private Model model;
+    public AddItemViewModel(Model model){
         this.model = model;
     }
-
     public ArrayList<String> getItemTypes() throws SQLException, RemoteException {
         return model.getItemTypes();
     }
-
     public HashMap<String, String> getTypeUnitParis() throws SQLException, RemoteException {
         return model.getTypeUnitPairs();
     }

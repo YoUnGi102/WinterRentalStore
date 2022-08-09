@@ -15,7 +15,7 @@ import static databaseAdapters.TypeImplementation.SIZE_UNIT;
 
 public class ItemImplementation implements ItemDAO{
 
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'hh:mm:ss");
     public static final String ITEM_TABLE = "item";
     public static final String NAME = "name";
     public static final String TYPE = "type";

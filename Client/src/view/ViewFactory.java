@@ -37,8 +37,8 @@ public class ViewFactory {
         this.addCustomerViewController = null;
         this.filterCustomersViewController = null;
         loadAddCustomerView();
+        loadFilterCustomersView();
     }
-
     public Region loadLoginView() {
         if (loginViewController == null) {
             FXMLLoader loader = new FXMLLoader();
@@ -53,7 +53,6 @@ public class ViewFactory {
         }
         return loginViewController.getRoot();
     }
-
     public Region loadEmployeeView() {
         if (manageEmployeeViewController == null) {
             FXMLLoader loader = new FXMLLoader();
@@ -68,7 +67,6 @@ public class ViewFactory {
         }
         return manageEmployeeViewController.getRoot();
     }
-
     public Region loadManageItemView() {
         if (manageItemViewController == null) {
             FXMLLoader loader = new FXMLLoader();
@@ -83,7 +81,6 @@ public class ViewFactory {
         }
         return manageItemViewController.getRoot();
     }
-
     public Region loadAddItemView() {
         if (addItemViewController == null) {
             FXMLLoader loader = new FXMLLoader();
@@ -98,7 +95,6 @@ public class ViewFactory {
         }
         return addItemViewController.getRoot();
     }
-
     public Region loadMenuView(){
         if(menuViewController == null){
             FXMLLoader loader = new FXMLLoader();
@@ -111,9 +107,9 @@ public class ViewFactory {
                 throw new IOError(e);
             }
         }
+        filterCustomersViewController.getViewModel().setListener(viewModelFactory.getMenuViewModel());
         return menuViewController.getRoot();
     }
-
     public Region loadFilterItemsView(){
         if(filterItemsViewController == null){
             FXMLLoader loader = new FXMLLoader();
@@ -128,7 +124,6 @@ public class ViewFactory {
         }
         return filterItemsViewController.getRoot();
     }
-
     public Region loadRentView(){
         if(rentViewController == null){
             FXMLLoader loader = new FXMLLoader();
@@ -141,6 +136,7 @@ public class ViewFactory {
                 throw new IOError(e);
             }
         }
+        filterCustomersViewController.getViewModel().setListener(viewModelFactory.getRentViewModel());
         addCustomerViewController.getViewModel().setRentViewListener(viewModelFactory.getRentViewModel());
         return rentViewController.getRoot();
     }
@@ -158,7 +154,6 @@ public class ViewFactory {
         }
         return addCustomerViewController.getRoot();
     }
-
     public Region loadFilterCustomersView(){
         if(filterCustomersViewController == null){
             FXMLLoader loader = new FXMLLoader();
@@ -174,6 +169,4 @@ public class ViewFactory {
         addCustomerViewController.getViewModel().setRentViewListener(null);
         return filterCustomersViewController.getRoot();
     }
-
-
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface RemoteModel extends Remote {
-    boolean logIn(String username, String password) throws RemoteException, NotBoundException, SQLException;
+    Staff logIn(String username, String password) throws RemoteException, NotBoundException, SQLException, IllegalStateException;
     void logOut() throws RemoteException, SQLException;
     void addCustomer(Customer customer) throws RemoteException, NotBoundException, SQLException;
     void removeCustomer(Customer customer) throws RemoteException, NotBoundException, SQLException;
@@ -22,10 +22,10 @@ public interface RemoteModel extends Remote {
     void removeItem(Item item) throws RemoteException, NotBoundException, SQLException;
     ArrayList<String> getItemTypes() throws RemoteException, SQLException;
     HashMap<String, String> getTypeUnitPairs() throws RemoteException, SQLException;
-    ArrayList<Employee> getEmployees() throws RemoteException, NotBoundException, SQLException;
-    ArrayList<Employee> getEmployeesByType(String type) throws RemoteException, NotBoundException, SQLException;
-    Employee getEmployeeByUsername(String username) throws RemoteException, NotBoundException, SQLException;
-    void addEmployee(Employee employee) throws RemoteException, NotBoundException, SQLException;
-    void removeEmployee(Employee employee) throws RemoteException, NotBoundException, SQLException;
-    void addRent(Rent rent);
+    ArrayList<Staff> getEmployees() throws RemoteException, NotBoundException, SQLException;
+    ArrayList<Staff> getEmployeesByType(String type) throws RemoteException, NotBoundException, SQLException;
+    Staff getEmployeeByUsername(String username) throws RemoteException, NotBoundException, SQLException;
+    void addEmployee(Staff employee) throws RemoteException, NotBoundException, SQLException;
+    void removeEmployee(Staff employee) throws RemoteException, NotBoundException, SQLException;
+    void addRent(Rent rent) throws SQLException, NotBoundException, RemoteException;
 }

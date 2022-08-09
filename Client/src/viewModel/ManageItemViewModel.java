@@ -1,8 +1,8 @@
 package viewModel;
 
 import javafx.beans.property.*;
-import mediator.RemoteModel;
 import model.Item;
+import model.Model;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class ManageItemViewModel {
 
-    private RemoteModel model;
+    private Model model;
     private IntegerProperty itemIdProperty;
     private StringProperty nameProperty;
     private StringProperty typeProperty;
@@ -19,7 +19,7 @@ public class ManageItemViewModel {
     private DoubleProperty pricePerDayProperty;
     private BooleanProperty rentedProperty;
 
-    public ManageItemViewModel(RemoteModel model) {
+    public ManageItemViewModel(Model model) {
         this.model = model;
         itemIdProperty = new SimpleIntegerProperty();
         nameProperty = new SimpleStringProperty();

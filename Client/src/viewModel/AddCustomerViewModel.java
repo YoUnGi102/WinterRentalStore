@@ -1,8 +1,7 @@
 package viewModel;
 
-import mediator.RemoteModel;
 import model.Customer;
-import view.FilterItemsViewController;
+import model.Model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -12,10 +11,10 @@ import java.sql.SQLException;
 
 public class AddCustomerViewModel {
 
-    private RemoteModel model;
+    private Model model;
 
     private PropertyChangeListener listener;
-    public AddCustomerViewModel(RemoteModel model){
+    public AddCustomerViewModel(Model model){
         this.model = model;
     }
 

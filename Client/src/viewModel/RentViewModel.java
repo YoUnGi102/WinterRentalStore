@@ -1,22 +1,19 @@
 package viewModel;
 
+import exceptions.NoItemsSelectedException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import mediator.RemoteModel;
-import model.Customer;
-import model.Item;
-import model.Rent;
-import model.Staff;
+import model.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.time.LocalDate;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -25,7 +22,7 @@ import static viewModel.FilterItemsViewModel.*;
 
 public class RentViewModel implements PropertyChangeListener {
 
-    private final RemoteModel model;
+    private final Model model;
     private ObjectProperty<ObservableList<ItemTableView>> shoppingCart;
     private ObjectProperty<Customer> customer;
     private PropertyChangeListener filterItemsListener;
@@ -33,13 +30,15 @@ public class RentViewModel implements PropertyChangeListener {
     private StringProperty endDate;
     private StringProperty total;
 
-    public RentViewModel(RemoteModel model){
+    private Double totalAmount;
+    public RentViewModel(Model model){
         customer = new SimpleObjectProperty<>();
         shoppingCart = new SimpleObjectProperty<>(FXCollections.observableArrayList());
         startDate = new SimpleStringProperty();
         endDate = new SimpleStringProperty();
         total = new SimpleStringProperty();
         this.model = model;
+        totalAmount = 0.0;
     }
 
     public void setFilterItemsListener(PropertyChangeListener filterItemsListener){
@@ -82,7 +81,6 @@ public class RentViewModel implements PropertyChangeListener {
     public void setCustomer(Customer customer) {
         this.customer.set(customer);
     }
-
     public void calculateTotal(){
         if(startDate.get() == null || endDate.get() == null)
             return;
@@ -93,11 +91,17 @@ public class RentViewModel implements PropertyChangeListener {
         for (ItemTableView i : shoppingCart.get()) {
             sumForDay += i.getItem().getPricePerDay();
         }
-        total.set(sumForDay * days + " € ("+ days+ " days)");
+        totalAmount = sumForDay * days * 1.0;
+        total.set(String.format("%.2f",totalAmount) + " € ("+ days+ " days)");
         System.out.println(sumForDay*days);
+
     }
 
-    public void createRent(){
+    public void createRent() throws SQLException, NotBoundException, RemoteException, NoItemsSelectedException {
+        if (shoppingCart.getValue().size() == 0){
+            throw new NoItemsSelectedException();
+        }
+
         LocalDateTime start = LocalDateTime.parse(startDate.get(), FilterItemsViewModel.FORMATTER);
         LocalDateTime end = LocalDateTime.parse(endDate.get(), FilterItemsViewModel.FORMATTER);
         Customer customer = this.customer.getValue();
@@ -105,9 +109,7 @@ public class RentViewModel implements PropertyChangeListener {
         for (ItemTableView i : shoppingCart.get()) {
             items.add(i.getItem());
         }
-        // TODO CHANGE STAFF
-        Staff staff = new Staff("admin", "way.james@gmail.com", "James", "Way", "manager");
-        Rent rent = new Rent(start,end,customer,items, staff, Double.parseDouble(total.get()));
+        Rent rent = new Rent(start,end,customer,items, model.getStaff(), totalAmount);
         model.addRent(rent);
     }
 

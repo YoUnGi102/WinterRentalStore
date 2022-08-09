@@ -36,14 +36,15 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
         System.out.println("Starting server...");
     }
     @Override
-    public boolean logIn(String username, String password) throws RemoteException, NotBoundException, SQLException {
+    public Staff logIn(String username, String password) throws RemoteException, NotBoundException, SQLException, IllegalStateException {
         // TODO ADD Client Connection
-        if (model.logIn(username, password)) {
+        Staff staff = model.logIn(username, password);
+        if (staff != null) {
             System.out.println("User " + username + " successfully logged in");
-            return true;
+            return staff;
         } else {
             System.out.println("User " + username + " was refused access");
-            return false;
+            throw new IllegalStateException("Username or pasword is wrong");
         }
     }
     @Override
@@ -116,7 +117,7 @@ public class Server extends UnicastRemoteObject implements RemoteModel {
         model.removeEmployee(employee);
     }
     @Override
-    public void addRent(Rent rent) {
+    public void addRent(Rent rent) throws SQLException, NotBoundException, RemoteException {
         model.addRent(rent);
     }
 }

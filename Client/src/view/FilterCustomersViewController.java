@@ -51,7 +51,11 @@ public class FilterCustomersViewController {
 
     @FXML
     void cancel() {
-        handler.openView(ViewHandler.MENU_VIEW);
+        if(viewModel.isRent()){
+            handler.openView(ViewHandler.RENT_VIEW);
+        }else{
+            handler.openView(ViewHandler.MENU_VIEW);
+        }
     }
 
     @FXML
@@ -72,7 +76,12 @@ public class FilterCustomersViewController {
         Customer customer = customerList.getSelectionModel().getSelectedItem().getCustomer();
         viewModel.rentTo(customer);
         System.out.println("HELLO");
-        handler.openView(ViewHandler.FILTER_ITEMS_VIEW);
+        if(viewModel.isRent()){
+            handler.openView(ViewHandler.RENT_VIEW);
+        }else{
+            handler.openView(ViewHandler.FILTER_ITEMS_VIEW);
+        }
+
     }
 
     @FXML
@@ -86,5 +95,9 @@ public class FilterCustomersViewController {
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public FilterCustomersViewModel getViewModel() {
+        return viewModel;
     }
 }

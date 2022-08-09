@@ -1,7 +1,5 @@
 package model;
 
-import javafx.collections.ObservableList;
-
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDateTime;
@@ -11,7 +9,7 @@ import java.util.HashMap;
 public interface Model {
 
     // LOGIN
-    boolean logIn(String username, String password) throws RemoteException, NotBoundException, SQLException;
+    Staff logIn(String username, String password) throws RemoteException, NotBoundException, SQLException, IllegalStateException;
     void logOut();
 
     // MANAGE ITEM AND TYPES

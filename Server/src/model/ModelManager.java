@@ -2,7 +2,6 @@ package model;
 
 
 import databaseAdapters.*;
-import javafx.collections.ObservableList;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -29,14 +28,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean logIn(String username, String password) throws RemoteException, NotBoundException, SQLException {
+    public Staff logIn(String username, String password) throws SQLException, IllegalStateException {
         currentUser = staffDAO.logIn(username, password);
-        return currentUser != null;
-        // TODO ADD EXCEPTION IF WRONG PASSWORD
+        if(currentUser == null)
+            throw new IllegalStateException();
+        return currentUser;
     }
     @Override
     public void logOut() {
-        // TODO
+
     }
 
     @Override

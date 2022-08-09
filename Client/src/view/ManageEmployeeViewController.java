@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import viewModel.LogInViewModel;
-import viewModel.ManageEmployeeViewModel;
 
 public class ManageEmployeeViewController {
     private ManageEmployeeViewModel viewModel;

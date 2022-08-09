@@ -1,6 +1,9 @@
 package view;
 
 import alerts.ErrorAlert;
+import alerts.ServerAlert;
+import alerts.SuccessAlert;
+import exceptions.NoItemsSelectedException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -18,6 +21,9 @@ import viewModel.FilterItemsViewModel;
 import viewModel.ItemTableView;
 import viewModel.RentViewModel;
 
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class RentViewController {
@@ -96,7 +102,28 @@ public class RentViewController {
 
     @FXML
     void confirm() {
-        viewModel.
+
+        if(customer.getValue() == null){
+            new ErrorAlert("No customer selected");
+            return;
+        }
+
+        if(startDate.getText() == null || startDate.getText().equals("") || startDate.getText() == null || endDate.getText().equals("")){
+            new ErrorAlert("Missing end or start date");
+            return;
+        }
+
+        try {
+            viewModel.createRent();
+            new SuccessAlert("New rent successfully created");
+            handler.openView(ViewHandler.FILTER_ITEMS_VIEW);
+        }catch (NoItemsSelectedException e){
+            new ErrorAlert("No items were selected");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (RemoteException | NotBoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

@@ -2,13 +2,11 @@ package viewModel;
 
 import com.sun.jdi.request.DuplicateRequestException;
 import javafx.beans.property.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import mediator.RemoteModel;
 import model.Customer;
 import model.Item;
+import model.Model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -20,8 +18,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-
 public class FilterItemsViewModel implements PropertyChangeListener {
 
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -30,14 +26,14 @@ public class FilterItemsViewModel implements PropertyChangeListener {
     public static final String UPDATE_START_DATE = "update_start_date";
     public static final String UPDATE_END_DATE = "update_end_date";
     public static final String UPDATE_TOTAL = "update_total";
-    private final RemoteModel model;
+    private final Model model;
     private ObjectProperty<ObservableList<ItemTableView>> shoppingCart;
     private ObjectProperty<ObservableList<ItemTableView>> searchedItems;
     private StringProperty itemsAmount;
 
     private PropertyChangeListener rentViewModelListener;
 
-    public FilterItemsViewModel(RemoteModel model){
+    public FilterItemsViewModel(Model model){
         searchedItems = new SimpleObjectProperty<>();
         itemsAmount = new SimpleStringProperty();
         shoppingCart = new SimpleObjectProperty<>(FXCollections.observableArrayList());

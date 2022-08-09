@@ -5,6 +5,8 @@ import model.Rent;
 
 import javax.xml.crypto.Data;
 import java.sql.*;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 import static databaseAdapters.DatabaseConnection.SCHEMA;
@@ -31,22 +33,29 @@ public class RentImplementation implements RentDAO {
     public void insert(Rent rent) throws SQLException {
 
         Connection connection = databaseConnection.getConnection();
+        System.out.println(rent.getStart().format(FORMATTER));
+        System.out.println(rent.getEnd().format(FORMATTER));
 
         String sql = "INSERT INTO "  + SCHEMA + "." + RENT_TABLE + "(" + START_DATE_TIME + "," + END_DATE_TIME + "," + USERNAME + "," + PASSPORT_NUMBER + ", " + TOTAL + ") VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        statement.setString(1,  rent.getStart().format(FORMATTER));
-        statement.setString(2, rent.getEnd().format(FORMATTER));
+        statement.setTimestamp(1,  Timestamp.valueOf(rent.getStart()));
+        statement.setTimestamp(2, Timestamp.valueOf(rent.getEnd()));
         statement.setString(3, rent.getStaff().getUsername());
         statement.setString(4, rent.getCustomer().getPassportNumber());
         statement.setDouble(5, rent.getTotal());
         statement.executeUpdate();
 
         ResultSet set = statement.getGeneratedKeys();
-        int id = set.getInt("rentId");
-        for (Item i : rent.getItems()) {
-            statement = connection.prepareStatement("INSERT INTO "+SCHEMA+"."+RENTED_ITEM_TABLE+"(rentId, inventoryItemId) VALUES (?,?)");
-            statement.setInt(1, id);
-            statement.setInt(2, i.getItemId());
+        if(set.next()){
+            int id = set.getInt("rentId");
+            System.out.println(id);
+            for (Item i : rent.getItems()) {
+                System.out.println("item");
+                statement = connection.prepareStatement("INSERT INTO "+SCHEMA+"."+RENTED_ITEM_TABLE+"(rentId, inventoryItemId) VALUES (?,?)");
+                statement.setInt(1, id);
+                statement.setInt(2, i.getItemId());
+                statement.executeUpdate();
+            }
         }
     }
 

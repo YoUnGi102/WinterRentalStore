@@ -1,15 +1,17 @@
 package viewModel;
 
-import mediator.RemoteModel;
+import model.Model;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
-public class MenuViewModel {
+public class MenuViewModel implements PropertyChangeListener {
 
-    private RemoteModel model;
+    private Model model;
 
-    public MenuViewModel(RemoteModel model){
+    public MenuViewModel(Model model){
         this.model = model;
     }
 
@@ -17,4 +19,7 @@ public class MenuViewModel {
         model.logOut();
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+    }
 }
