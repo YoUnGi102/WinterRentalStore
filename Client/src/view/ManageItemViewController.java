@@ -20,6 +20,11 @@ public class ManageItemViewController {
         handler.openView(ViewHandler.ADD_ITEM_VIEW);
     }
 
+    @FXML
+    void cancel() {
+        handler.openView(ViewHandler.MENU_VIEW);
+    }
+
     public Region getRoot() {
         return root;
     }
