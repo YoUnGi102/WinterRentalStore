@@ -62,10 +62,12 @@ public class AddCustomerViewController {
         String email = this.email.getText();
         String phone = this.phone.getText();
         String passport = this.passport.getText();
+
         if (fName.equals("") || lName.equals("") || email.equals("") || phone.equals("") || passport.equals("")) {
             new ErrorAlert("Missing information in one or more fields!");
             return;
         }
+
         String allowedChars = "0123456789+";
         for (char c : phone.toCharArray()) {
             if (!allowedChars.contains(String.valueOf(c))) {
@@ -73,6 +75,7 @@ public class AddCustomerViewController {
                 return;
             }
         }
+
         int mail = 0;
         for (int i = 0; i < email.length(); i++) {
             char c = email.charAt(i);
@@ -97,23 +100,18 @@ public class AddCustomerViewController {
                 clear();
                 handler.openView(ViewHandler.FILTER_CUSTOMERS_VIEW);
             }
+        } catch (org.postgresql.util.PSQLException e) {
+            System.out.println(e.getSQLState() + " " + e.getErrorCode());
+            if (Integer.parseInt(e.getSQLState()) == 23505) {
+                new ErrorAlert("Customer with this passport, email or phone number is already in the system");
+            } else {
+                new DatabaseAlert();
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new DatabaseAlert();
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            new ServerAlert();
         }
-//        } catch (org.postgresql.util.PSQLException e) {
-//            System.out.println(e.getSQLState() + " " + e.getErrorCode());
-//            if (Integer.parseInt(e.getSQLState()) == 23505) {
-//                new ErrorAlert("Customer with this passport, email or phone number is already in the system");
-//            } else {
-//                new DatabaseAlert();
-//            }
-//        } catch (SQLException e) {
-//            new DatabaseAlert();
-//        } catch (RemoteException e) {
-//            new ServerAlert();
-//        }
     }
 
 

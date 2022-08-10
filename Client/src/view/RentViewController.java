@@ -33,14 +33,15 @@ public class RentViewController {
 
     @FXML
     private TableColumn<ItemTableView, String> nameColumn, typeColumn;
+
     @FXML
     private TableColumn<ItemTableView, Integer> sizeColumn;
+
     @FXML
     private TableColumn<ItemTableView, Double> priceColumn;
 
     @FXML
     private Label customerName, total, startDate, endDate, email, phone, passport;
-
     private ViewHandler handler;
     private RentViewModel viewModel;
     private Region root;
@@ -108,7 +109,8 @@ public class RentViewController {
             return;
         }
 
-        if(startDate.getText() == null || startDate.getText().equals("") || startDate.getText() == null || endDate.getText().equals("")){
+        if(startDate.getText() == null || startDate.getText().equals("")
+                || startDate.getText() == null || endDate.getText().equals("")){
             new ErrorAlert("Missing end or start date");
             return;
         }
@@ -119,9 +121,7 @@ public class RentViewController {
             handler.openView(ViewHandler.FILTER_ITEMS_VIEW);
         }catch (NoItemsSelectedException e){
             new ErrorAlert("No items were selected");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (RemoteException | NotBoundException e) {
+        } catch (SQLException | RemoteException | NotBoundException e) {
             throw new RuntimeException(e);
         }
     }

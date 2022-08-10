@@ -42,46 +42,30 @@ public class RentViewModel implements PropertyChangeListener {
         this.model = model;
         totalAmount = 0.0;
     }
-
     public void setFilterItemsListener(PropertyChangeListener filterItemsListener){
         this.filterItemsListener = filterItemsListener;
-    }
-
-    public void bindStartDate(StringProperty startDate){
-        startDate.bind(this.startDate);
-    }
-
-    public void bindEndDate(StringProperty endDate){
-        endDate.bind(this.endDate);
-    }
-
-    public void bindTotal(StringProperty total) {
-        total.bind(this.total);
-    }
-    public void bindShoppingCart(ObjectProperty<ObservableList<ItemTableView>> shoppingCart){
-        shoppingCart.bind(this.shoppingCart);
-    }
-    public void bindCustomer(ObjectProperty<Customer> customer){
-        customer.bindBidirectional(this.customer);
-    }
-    public void removeFromBasket(ItemTableView itemTableView){
-        shoppingCart.get().remove(itemTableView);
-        calculateTotal();
-        filterItemsListener.propertyChange(new PropertyChangeEvent(this, UPDATE_SHOPPING_CART, null, shoppingCart.get()));
     }
 
     public Customer getCustomer() {
         return customer.get();
     }
+    public void bindStartDate(StringProperty startDate){
+        startDate.bind(this.startDate);
+    }
+    public void bindEndDate(StringProperty endDate){
+        endDate.bind(this.endDate);
+    }
+    public void bindTotal(StringProperty total) {
+        total.bind(this.total);
+    }
+    public void bindCustomer(ObjectProperty<Customer> customer){
+        customer.bindBidirectional(this.customer);
+    }
 
-    public void clearShoppingCart(){
-        shoppingCart.get().clear();
-        calculateTotal();
-        filterItemsListener.propertyChange(new PropertyChangeEvent(this, UPDATE_SHOPPING_CART, null, shoppingCart.get()));
+    public void bindShoppingCart(ObjectProperty<ObservableList<ItemTableView>> shoppingCart){
+        shoppingCart.bind(this.shoppingCart);
     }
-    public void setCustomer(Customer customer) {
-        this.customer.set(customer);
-    }
+
     public void calculateTotal(){
         if(startDate.get() == null || endDate.get() == null)
             return;
@@ -97,7 +81,19 @@ public class RentViewModel implements PropertyChangeListener {
         System.out.println(sumForDay*days);
 
     }
-
+    public void removeFromBasket(ItemTableView itemTableView){
+        shoppingCart.get().remove(itemTableView);
+        calculateTotal();
+        filterItemsListener.propertyChange(new PropertyChangeEvent(this, UPDATE_SHOPPING_CART, null, shoppingCart.get()));
+    }
+    public void clearShoppingCart(){
+        shoppingCart.get().clear();
+        calculateTotal();
+        filterItemsListener.propertyChange(new PropertyChangeEvent(this, UPDATE_SHOPPING_CART, null, shoppingCart.get()));
+    }
+    public void setCustomer(Customer customer) {
+        this.customer.set(customer);
+    }
     public void createRent() throws SQLException, NotBoundException, RemoteException, NoItemsSelectedException {
         if (shoppingCart.getValue().size() == 0){
             throw new NoItemsSelectedException();
@@ -136,7 +132,6 @@ public class RentViewModel implements PropertyChangeListener {
                 this.endDate.setValue(endDate);
                 calculateTotal();
                 break;
-            case UPDATE_TOTAL:
         }
     }
 }

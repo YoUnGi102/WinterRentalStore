@@ -16,7 +16,6 @@ public class ModelManager implements Model {
     private StaffDAO staffDAO;
     private TypeDAO typeDAO;
     private ItemDAO itemDAO;
-    private Staff currentUser;
 
     private RentDAO rentDAO;
     public ModelManager() {
@@ -29,10 +28,7 @@ public class ModelManager implements Model {
 
     @Override
     public Staff logIn(String username, String password) throws SQLException, IllegalStateException {
-        currentUser = staffDAO.logIn(username, password);
-        if(currentUser == null)
-            throw new IllegalStateException();
-        return currentUser;
+        return staffDAO.logIn(username, password);
     }
     @Override
     public void logOut() {

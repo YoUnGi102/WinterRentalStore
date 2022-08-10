@@ -36,7 +36,8 @@ public class RentImplementation implements RentDAO {
         System.out.println(rent.getStart().format(FORMATTER));
         System.out.println(rent.getEnd().format(FORMATTER));
 
-        String sql = "INSERT INTO "  + SCHEMA + "." + RENT_TABLE + "(" + START_DATE_TIME + "," + END_DATE_TIME + "," + USERNAME + "," + PASSPORT_NUMBER + ", " + TOTAL + ") VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO "  + SCHEMA + "." + RENT_TABLE + "(" + START_DATE_TIME + "," + END_DATE_TIME + "," +
+                USERNAME + "," + PASSPORT_NUMBER + ", " + TOTAL + ") VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         statement.setTimestamp(1,  Timestamp.valueOf(rent.getStart()));
         statement.setTimestamp(2, Timestamp.valueOf(rent.getEnd()));
