@@ -79,7 +79,7 @@ public class ItemImplementation implements ItemDAO{
                         "FROM InventoryItem II " +
                         "INNER JOIN Item I on II.itemId = I.itemId " +
                         "INNER JOIN Type T on I.type = T.type " +
-                        "WHERE inventoryId NOT IN (SELECT inventoryId FROM RentedItem) and I.size >= ?::int and I.size <= ?::int and I.pricePerDay >= ?::double precision and " +
+                        "WHERE inventoryId NOT IN (SELECT inventoryitemId FROM RentedItem) and I.size >= ?::int and I.size <= ?::int and I.pricePerDay >= ?::double precision and " +
                         "I.pricePerDay < ?::double precision " + (type == null || type.equals("") ?" ":"and I.type = ? ") +
                         "UNION " +
                         "SELECT inventoryId, name, I.type, size, pricePerDay, T.sizeUnit " +
